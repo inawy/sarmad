@@ -10,10 +10,6 @@ import {
   type QuranPassage,
 } from "../data/readingContent";
 
-type ReadingContentProps = {
-  dedicationName: string;
-};
-
 function toArabicNumber(value: number): string {
   return String(value).replace(/\d/g, (digit) => "٠١٢٣٤٥٦٧٨٩"[Number(digit)]);
 }
@@ -138,7 +134,7 @@ function SourceDisclosure() {
   );
 }
 
-export function ReadingContent({ dedicationName }: ReadingContentProps) {
+export function ReadingContent() {
   return (
     <div className="reading-content" aria-label="نصوص للقراءة والدعاء">
       {QURAN_PASSAGES.map((passage) => (
@@ -164,16 +160,6 @@ export function ReadingContent({ dedicationName }: ReadingContentProps) {
       <section className="reading-section dua-section">
         <p className="devotional-text" lang="ar">{FORGIVENESS_DUA}</p>
         <p className="devotional-text" lang="ar">{GENERAL_DUA}</p>
-      </section>
-
-      <section className="dedication-prayer" aria-label="دعاء الإهداء">
-        <p>اللَّهُمَّ تَقَبَّلْ قِرَاءَتِي، وَهَبْ مِثْلَ ثَوَابِهَا</p>
-        <p>
-          {dedicationName
-            ? `إِلَى ${dedicationName.trim()}.`
-            : "لِمَنْ أَهْدَيْتُهَا إِلَيْهِ."}
-        </p>
-        <span>حَيًّا كَانَ أَوْ مَيِّتًا</span>
       </section>
 
       <SourceDisclosure />
