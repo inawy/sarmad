@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { BrandHeader } from "./components/BrandHeader";
 import { DedicationCard } from "./components/DedicationCard";
 import { ReadingContent } from "./components/ReadingContent";
-import { ShareActions } from "./components/ShareActions";
 import { useDedicationName } from "./hooks/useDedicationName";
 
 export default function App() {
@@ -10,44 +9,28 @@ export default function App() {
   const pageName = name.trim();
 
   useEffect(() => {
-    document.title = pageName
-      ? `إهداء إلى ${pageName} | سرمد`
-      : "سرمد | صفحة إهداء";
+    document.title = pageName ? `إهداء إلى ${pageName} | سرمد` : "سرمد | صفحة إهداء";
   }, [pageName]);
 
   return (
     <div className="app-shell min-h-screen" dir="rtl">
       <div className="ambient ambient-one" aria-hidden="true" />
       <div className="ambient ambient-two" aria-hidden="true" />
-
       <div className="page-container" id="sarmad-page">
         <BrandHeader />
-
         <main className="main-content">
           <div className="page-intro">
             <p className="intro-kicker">مساحة للإهداء والمحبة</p>
             <h1>اسمٌ عزيز، وأثرٌ طيّب</h1>
-            <p className="intro-description">
-              صفحة إهداء بسيطة تحمل اسمك أو اسم شخص تحبه.
-            </p>
+            <p className="intro-description">صفحة إهداء بسيطة تحمل اسمك أو اسم شخص تحبه.</p>
           </div>
-
-          <DedicationCard
-            name={name}
-            maxLength={maxLength}
-            onNameChange={updateName}
-          />
-
+          <DedicationCard name={name} maxLength={maxLength} onNameChange={updateName} />
           <p className="editing-note">
-            {pageName
-              ? "يمكنك الضغط على الاسم وتعديله في أي وقت."
-              : "اكتب الاسم مباشرةً في البطاقة لتخصيص إهدائك."}
+            {pageName ? "يمكنك الضغط على الاسم وتعديله في أي وقت." :
+              "اكتب الاسم مباشرةً في البطاقة لتخصيص إهدائك."}
           </p>
-
           <ReadingContent />
-          <ShareActions name={pageName} />
         </main>
-
         <footer className="site-footer" aria-label="سرمد">
           <span className="site-footer-brand">سرمد</span>
           <span className="site-footer-tagline">أثرٌ يبقى</span>
