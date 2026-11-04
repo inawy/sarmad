@@ -1559,20 +1559,21 @@ input {
     border-bottom: 0;
   }
 
+  /* The footer should end the document without an extra reserved bottom area. */
+  .app-shell {
+    min-height: 0;
+  }
+
   .site-footer {
     flex: 0 0 auto;
     gap: 0;
-    margin-top: 0;
-    padding-top: 5px;
-    padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+    margin: 0;
+    padding: 2px 0 0;
   }
 
-  .site-footer-brand {
-    line-height: 1.25;
-  }
-
+  .site-footer-brand,
   .site-footer-tagline {
-    line-height: 1.25;
+    line-height: 1.1;
   }
 
   @media (min-width: 1024px) {
