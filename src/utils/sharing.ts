@@ -37,7 +37,7 @@ function findPage(): HTMLElement {
 }
 
 function prepareStaticCard(card: HTMLElement, name: string): void {
-  card.querySelectorAll("[data-share-ui]").forEach((element) => element.remove());
+  card.querySelectorAll("[data-share-ui], .name-guidance").forEach((element) => element.remove());
   const input = card.querySelector<HTMLInputElement>(".name-field");
   const editor = card.querySelector<HTMLElement>(".name-editor");
   if (!input || !editor) throw new Error("تعذر تجهيز اسم الإهداء للتصدير.");
@@ -89,7 +89,28 @@ export async function createDedicationPdf(name: string): Promise<File> {
   const clone = findPage().cloneNode(true) as HTMLElement;
   prepareStaticCard(findCard(clone), name);
   clone.classList.add("exporting-document");
+  clone.querySelector(".page-intro")?.remove();
   clone.querySelectorAll(".editing-note, [data-share-ui]").forEach((element) => element.remove());
+
+  const reading = clone.querySelector<HTMLElement>(".reading-content");
+  if (reading) {
+    const heading = document.createElement("header");
+    heading.className = "export-reading-heading";
+    const eyebrow = document.createElement("p");
+    eyebrow.className = "export-reading-eyebrow";
+    eyebrow.textContent = "سَرْمَد · أَثَرٌ يَبْقَى";
+    const title = document.createElement("h1");
+    title.textContent = "نصوص للقراءة والدعاء";
+    const subtitle = document.createElement("p");
+    subtitle.textContent = "من القرآن الكريم والذكر والدعاء";
+    heading.append(eyebrow, title, subtitle);
+    reading.parentNode?.insertBefore(heading, reading);
+  }
+
+  clone.querySelectorAll<HTMLDetailsElement>(".sources-disclosure").forEach((details) => {
+    details.open = true;
+  });
+
   const staging = document.createElement("div");
   staging.className = "sarmad-pdf-staging";
   staging.appendChild(clone);
@@ -111,7 +132,10 @@ export async function createDedicationPdf(name: string): Promise<File> {
         logging: false,
       },
       jsPDF: { unit: "mm", format: "a4" as const, orientation: "portrait" as const, compress: true },
-      pagebreak: { mode: ["css", "legacy"], avoid: [".dedication-card", ".reading-section", ".sources-disclosure"] },
+      pagebreak: {
+        mode: ["css", "legacy"],
+        avoid: [".dedication-card", ".export-reading-heading", ".reading-section", ".sources-disclosure"],
+      },
     };
     const blob = (await html2pdf().set(options).from(clone).outputPdf("blob")) as Blob;
     return new File([blob], `${safeFileBase(name)}.pdf`, { type: "application/pdf" });
@@ -150,8 +174,12 @@ export async function copyText(value: string): Promise<void> {
   if (!copied) window.prompt("انسخ رابط الإهداء:", value);
 }
 
-export async function shareFileOrDownload(file: File, shareText: string): Promise<"shared" | "downloaded" | "cancelled"> {
-  const shareData = { files: [file], title: "إهداء من سرمد", text: shareText };
+export async function shareFileOrDownload(
+  file: File,
+  shareText: string,
+  shareTitle = "إهداء من سرمد",
+): Promise<"shared" | "downloaded" | "cancelled"> {
+  const shareData = { files: [file], title: shareTitle, text: shareText };
   const shareApi = navigator as unknown as {
     share?: (data: ShareData) => Promise<void>;
     canShare?: (data?: ShareData) => boolean;
