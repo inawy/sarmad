@@ -1631,7 +1631,7 @@ input {
   }
 
   .devotional-text {
-    font-size: clamp(23px, 2.5vw, 27px);
+    font-size: clamp(21px, 2.3vw, 25px);
     line-height: 2.05;
     text-wrap: pretty;
   }
@@ -1682,7 +1682,7 @@ input {
   }
 
   .devotional-text {
-    font-size: clamp(21px, 5.6vw, 25px);
+    font-size: clamp(19px, 5.2vw, 23px);
     line-height: 2.05;
   }
 }
