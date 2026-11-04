@@ -83,7 +83,7 @@ export async function createDedicationPng(name: string): Promise<File> {
   }
 }
 
-export async function createDedicationPdf(name: string): Promise<void> {
+export async function createDedicationPdf(name: string): Promise<File> {
   const page = findPage();
   const { default: html2pdf } = await import("html2pdf.js");
 
@@ -113,7 +113,10 @@ export async function createDedicationPdf(name: string): Promise<void> {
       },
     };
 
-    await html2pdf().set(options).from(page).save();
+    const blob = (await html2pdf().set(options).from(page).outputPdf("blob")) as Blob;
+    return new File([blob], `${safeFileBase(name)}.pdf`, {
+      type: "application/pdf",
+    });
   } finally {
     page.classList.remove("exporting-document");
   }
