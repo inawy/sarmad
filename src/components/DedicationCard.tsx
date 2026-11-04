@@ -14,7 +14,8 @@ export function DedicationCard({ name, maxLength, onNameChange }: DedicationCard
   const nameSizeClass = name.trim().length > 22 ? "name-field--long" :
     name.trim().length > 14 ? "name-field--medium" : "";
 
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => onNameChange(event.target.value);
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) =>
+    onNameChange(event.target.value.replace(/[\r\n]+/g, " "));
 
   const focusName = () => {
     inputRef.current?.focus();
@@ -38,6 +39,10 @@ export function DedicationCard({ name, maxLength, onNameChange }: DedicationCard
             maxLength={maxLength}
             placeholder="اسم الشخص المُهدى إليه"
             aria-label="اكتب اسم الشخص الذي تهديه الصفحة"
+            aria-multiline="false"
+            onKeyDown={(event) => {
+              if (event.key === "Enter") event.preventDefault();
+            }}
             autoComplete="off"
             autoCapitalize="words"
             dir="auto"
