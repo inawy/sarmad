@@ -820,287 +820,104 @@ input {
 }
 
 
-/* Sharing and export controls */
-.share-actions {
-  width: min(100%, 690px);
-  margin: 30px 0 18px;
-  padding: 22px 20px 14px;
-  border: 1px solid #dce3d8;
-  border-radius: 22px;
-  background: rgba(251, 250, 245, 0.78);
+/* Share menu anchored to the dedication card */
+.share-actions { position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; margin-top:25px; }
+.share-trigger {
+  display:inline-flex; min-width:126px; min-height:42px; align-items:center; justify-content:center; gap:9px;
+  padding:8px 17px; border:1px solid #d8e1d5; border-radius:999px; background:rgba(245,248,241,.96);
+  color:#496a4e; font-size:13px; font-weight:600; cursor:pointer;
+  transition:background-color 150ms ease,border-color 150ms ease,transform 150ms ease;
 }
-
-.share-actions-heading {
-  margin-bottom: 16px;
-  text-align: center;
+.share-trigger:hover:not(:disabled) { border-color:#a8bba2; background:#eef3e9; }
+.share-trigger:active:not(:disabled) { transform:translateY(1px); }
+.share-trigger:focus-visible,.share-action:focus-visible { outline:2px solid #6c8e70; outline-offset:2px; }
+.share-trigger:disabled { cursor:wait; opacity:.75; }
+.share-chevron { color:#82937e; transition:transform 150ms ease; }
+.share-chevron.is-open { transform:rotate(180deg); }
+.share-popover {
+  position:absolute; bottom:calc(100% + 10px); left:50%; z-index:30; width:min(270px,calc(100vw - 76px));
+  padding:7px; transform:translateX(-50%); border:1px solid #dce3d8; border-radius:17px;
+  background:#fffefa; box-shadow:0 15px 38px rgba(43,69,48,.16);
 }
-
-.share-actions-heading h2 {
-  margin: 0;
-  color: #365c40;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.share-actions-heading p {
-  margin: 4px 0 0;
-  color: #879384;
-  font-size: 12px;
-}
-
-.share-actions-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 9px;
-}
-
 .share-action {
-  display: flex;
-  min-height: 54px;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  padding: 10px 12px;
-  border: 1px solid #d8e1d5;
-  border-radius: 14px;
-  background: #fffefa;
-  color: #496a4e;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+  display:flex; width:100%; min-height:46px; align-items:center; justify-content:flex-start; gap:11px;
+  padding:9px 12px; border:0; border-radius:11px; background:transparent; color:#496a4e;
+  font-size:13px; font-weight:500; text-align:right; cursor:pointer; transition:background-color 140ms ease;
 }
+.share-action:hover { background:#f1f5ed; }
+.share-action-icon { flex:0 0 auto; color:#708a70; }
+.share-actions-status { max-width:270px; margin:5px 0 0; color:#6f866f; font-size:11px; line-height:1.6; text-align:center; }
+.is-spinning { animation:sarmad-spin 1s linear infinite; }
+@keyframes sarmad-spin { to { transform:rotate(360deg); } }
 
-.share-action:hover:not(:disabled) {
-  border-color: #9fb49b;
-  background: #f2f6ef;
-}
-
-.share-action:active:not(:disabled) {
-  transform: translateY(1px);
-}
-
-.share-action:focus-visible {
-  outline: 2px solid #6c8e70;
-  outline-offset: 3px;
-}
-
-.share-action:disabled {
-  cursor: wait;
-  opacity: 0.65;
-}
-
-.share-action--primary {
-  border-color: #315d3d;
-  background: #315d3d;
-  color: #fff;
-}
-
-.share-action--primary:hover:not(:disabled) {
-  border-color: #244b30;
-  background: #244b30;
-}
-
-.share-action-icon {
-  flex: 0 0 auto;
-}
-
-.share-actions-note {
-  margin: 12px 0 0;
-  color: #8b9688;
-  font-size: 11px;
-  text-align: center;
-  line-height: 1.7;
-}
-
-.share-actions-status {
-  min-height: 20px;
-  margin: 5px 0 0;
-  color: #55765b;
-  font-size: 11px;
-  text-align: center;
-}
-
-.is-spinning {
-  animation: sarmad-spin 1s linear infinite;
-}
-
-@keyframes sarmad-spin {
-  to { transform: rotate(360deg); }
-}
-
-/* PNG export staging is detached from the visible page layout. */
+/* Isolated 4:5 PNG export at double resolution. */
 .sarmad-export-staging {
-  position: fixed;
-  top: 0;
-  left: -10000px;
-  width: 864px;
-  height: 1080px;
-  overflow: visible;
-  direction: rtl;
-  pointer-events: none;
-  z-index: -1;
+  position:fixed; top:0; left:-10000px; width:864px; height:1080px; overflow:visible;
+  direction:rtl; pointer-events:none; z-index:-1;
 }
-
 .dedication-card--export {
-  width: 864px !important;
-  max-width: none !important;
-  height: 1080px !important;
-  padding: 22px !important;
-  border-radius: 32px !important;
-  box-shadow: none !important;
+  width:864px !important; max-width:none !important; min-height:1080px !important; height:1080px !important;
+  padding:22px !important; border-radius:32px !important; box-shadow:none !important;
 }
-
-.dedication-card--export::before {
-  inset: 19px;
-  border-radius: 23px;
-}
-
+.dedication-card--export::before { inset:19px; border-radius:23px; }
+.dedication-card--export::after { top:-100px; width:360px; height:230px; }
 .dedication-card--export .card-inner--export {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  justify-content: center;
-  padding: 72px 66px 58px;
+  display:flex; width:100%; height:100%; min-height:0; justify-content:center; padding:68px 66px 58px;
 }
-
-.dedication-card--export .card-top-mark {
-  margin-bottom: 42px;
-}
-
-.dedication-card--export .mark-center {
-  width: 58px;
-  height: 58px;
-}
-
-.dedication-card--export .mark-center svg {
-  width: 32px;
-  height: 32px;
-}
-
-.dedication-card--export .mark-line {
-  width: 62px;
-}
-
-.dedication-card--export .card-eyebrow {
-  font-size: 20px;
-}
-
-.dedication-card--export .card-divider {
-  margin-block: 24px 35px;
-}
-
-.dedication-card--export .card-divider span {
-  width: 76px;
-}
-
-.dedication-card--export .to-word {
-  font-size: 43px;
-}
-
+.dedication-card--export .card-top-mark { margin-bottom:35px; }
+.dedication-card--export .mark-center { width:58px; height:58px; }
+.dedication-card--export .mark-center svg { width:32px; height:32px; }
+.dedication-card--export .mark-line { width:62px; }
+.dedication-card--export .card-eyebrow { font-size:20px; }
+.dedication-card--export .card-divider { margin-block:23px 31px; }
+.dedication-card--export .card-divider span { width:76px; }
+.dedication-card--export .to-word { font-size:43px; }
 .dedication-card--export .export-name-field {
-  display: grid;
-  width: min(100%, 620px);
-  min-height: 106px;
-  place-items: center;
-  padding: 4px 10px 13px;
-  border-bottom: 1px solid #d4dfd0;
-  color: #285b42;
-  font-family: "Amiri", "IBM Plex Sans Arabic", serif;
-  font-size: 64px;
-  font-weight: 700;
-  line-height: 1.5;
-  text-align: center;
-  overflow-wrap: anywhere;
+  display:grid; width:min(100%,620px); min-height:106px; place-items:center; padding:4px 10px 13px;
+  border-bottom:1px solid #d4dfd0; color:#285b42; font-family:"Amiri","IBM Plex Sans Arabic",serif;
+  font-size:64px; font-weight:700; line-height:1.5; text-align:center; overflow-wrap:anywhere; word-break:break-word;
 }
+.dedication-card--export .export-name-field.name-field--medium { font-size:52px; }
+.dedication-card--export .export-name-field.name-field--long { font-size:42px; }
+.dedication-card--export .name-guidance { margin-top:14px; font-size:18px; }
+.dedication-card--export .message-rule { margin-block:43px 30px; }
+.dedication-card--export .message-rule span { width:92px; }
+.dedication-card--export .dedication-prayer-inline { margin-top:28px; padding-top:26px; gap:5px; }
+.dedication-card--export .dedication-prayer-inline .dedication-message { font-size:32px; line-height:1.85; }
+.dedication-card--export .dedication-recipient { font-size:35px; }
+.dedication-card--export .dedication-recipient-note { margin-top:4px; font-size:17px; }
+.dedication-card--export .card-footer { margin-top:36px; font-size:28px; }
+.dedication-card--export .footer-flourish svg { width:27px; height:27px; }
+.dedication-card--export .footer-caption { font-size:16px; }
 
-.dedication-card--export .export-name-field.name-field--medium {
-  font-size: 52px;
+/* Fixed A4 content width for PDF export, independent of the active viewport. */
+.sarmad-pdf-staging {
+  position:fixed; top:0; left:-10000px; width:718px; min-height:1px; overflow:visible;
+  direction:rtl; background:#f7f7f1; pointer-events:none; z-index:-1;
 }
-
-.dedication-card--export .export-name-field.name-field--long {
-  font-size: 42px;
-}
-
-.dedication-card--export .name-guidance {
-  margin-top: 16px;
-  font-size: 18px;
-}
-
-.dedication-card--export .message-rule {
-  margin-block: 52px 34px;
-}
-
-.dedication-card--export .message-rule span {
-  width: 92px;
-}
-
-.dedication-card--export .dedication-prayer-inline {
-  margin-top: 35px;
-  padding-top: 30px;
-  gap: 5px;
-}
-
-.dedication-card--export .dedication-prayer-inline .dedication-message {
-  font-size: 32px;
-  line-height: 1.9;
-}
-
-.dedication-card--export .dedication-recipient {
-  font-size: 35px;
-}
-
-.dedication-card--export .dedication-recipient-note {
-  margin-top: 4px;
-  font-size: 17px;
-}
-
-.dedication-card--export .card-footer {
-  margin-top: 42px;
-  font-size: 28px;
-}
-
-.dedication-card--export .footer-caption {
-  font-size: 16px;
-}
-
-/* The PDF contains the dedication and all reading content, not the action bar. */
 .exporting-document {
-  width: min(100%, 760px) !important;
-  min-height: 0 !important;
-  margin-inline: auto !important;
-  padding-inline: 16px;
-  background: #f7f7f1;
+  width:718px !important; max-width:none !important; min-height:0 !important; margin:0 !important;
+  padding:0 12px !important; background:#f7f7f1 !important;
 }
-
-.exporting-document .share-actions,
-.exporting-document .editing-note {
-  display: none !important;
+.exporting-document .share-actions,.exporting-document .editing-note { display:none !important; }
+.exporting-document .main-content { display:block; min-height:0; padding:18px 0 24px; }
+.exporting-document .page-intro { margin-bottom:22px; }
+.exporting-document .dedication-card { width:100%; margin-inline:auto; box-shadow:none; }
+.exporting-document .card-inner { min-height:460px; }
+.exporting-document .export-name-field {
+  display:grid; width:min(100%,510px); min-height:66px; place-items:center; padding:2px 8px 9px;
+  border-bottom:1px solid #d4dfd0; color:#285b42; font-family:"Amiri","IBM Plex Sans Arabic",serif;
+  font-size:clamp(34px,6vw,48px); font-weight:700; line-height:1.45; text-align:center; overflow-wrap:anywhere;
 }
+.exporting-document .export-name-field.name-field--medium { font-size:39px; }
+.exporting-document .export-name-field.name-field--long { font-size:31px; }
+.exporting-document .reading-content { width:100%; margin-top:24px; }
+.exporting-document .reading-section { padding-inline:8px; }
 
-@media (max-width: 640px) {
-  .share-actions {
-    margin-top: 24px;
-    padding: 18px 13px 11px;
-    border-radius: 18px;
-  }
-
-  .share-actions-grid {
-    gap: 8px;
-  }
-
-  .share-action {
-    min-height: 52px;
-    gap: 7px;
-    padding: 9px 7px;
-    font-size: 12px;
-  }
-
-  .share-action-icon {
-    width: 17px;
-    height: 17px;
-  }
+@media (max-width:640px) {
+  .share-actions { margin-top:20px; }
+  .share-trigger { min-height:40px; font-size:12px; }
+  .share-action { min-height:44px; font-size:12px; }
 }
 
 @media print {
