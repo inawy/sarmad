@@ -1,5 +1,5 @@
-import type { ChangeEvent } from "react";
-import { Infinity, Sparkles } from "lucide-react";
+import { useRef, type ChangeEvent } from "react";
+import { Infinity, Pencil, Sparkles } from "lucide-react";
 import { ShareActions } from "./ShareActions";
 
 type DedicationCardProps = {
@@ -17,11 +17,17 @@ function CardDivider() {
 }
 
 export function DedicationCard({ name, maxLength, onNameChange }: DedicationCardProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
   const hasName = name.trim().length > 0;
   const nameSizeClass = name.trim().length > 22 ? "name-field--long" :
     name.trim().length > 14 ? "name-field--medium" : "";
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => onNameChange(event.target.value);
+
+  const focusName = () => {
+    inputRef.current?.focus();
+    inputRef.current?.select();
+  };
 
   return (
     <article className="dedication-card" data-dedication-card aria-label="بطاقة الإهداء">
@@ -35,23 +41,36 @@ export function DedicationCard({ name, maxLength, onNameChange }: DedicationCard
         <CardDivider />
         <p className="to-word">إلى</p>
         <label className="name-editor">
-          <span className="sr-only">اسم صاحب الإهداء</span>
+          <span className="sr-only">اسم الشخص المُهدى إليه</span>
           <input
+            ref={inputRef}
             className={`name-field ${nameSizeClass}`}
             type="text"
             value={name}
             onChange={handleChange}
             maxLength={maxLength}
-            placeholder="اكتب الاسم هنا"
-            aria-label="اكتب اسمك أو اسم الشخص الذي تهديه الصفحة"
+            placeholder="اسم الشخص المُهدى إليه"
+            aria-label="اكتب اسم الشخص الذي تهديه الصفحة"
             autoComplete="off"
             autoCapitalize="words"
             dir="auto"
           />
         </label>
-        <p className={`name-guidance ${hasName ? "name-guidance--filled" : ""}`}>
-          {hasName ? "إهداء باسمك أو باسم من تحب" : "اسمك أو اسم شخص عزيز تهدي إليه ثواب القراءة"}
-        </p>
+
+        <div className="name-guidance-row">
+          <p className={`name-guidance ${hasName ? "name-guidance--filled" : ""}`}>
+            {hasName
+              ? "الرابط مخصص بهذا الاسم، ويمكنك تغييره."
+              : "اكتب اسمك أو اسم شخص تحبه."}
+          </p>
+          {hasName && (
+            <button className="name-edit-button" type="button" onClick={focusName}>
+              <Pencil size={13} />
+              <span>تغيير الاسم</span>
+            </button>
+          )}
+        </div>
+
         <div className="message-rule" aria-hidden="true"><span /></div>
         <div className="dedication-prayer-inline">
           <p className="dedication-message">اللهم تقبّل قراءتي، وهب مثل ثوابها.</p>
