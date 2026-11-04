@@ -35,7 +35,7 @@ export function DedicationCard({
   };
 
   return (
-    <article className="dedication-card" aria-label="بطاقة الإهداء">
+    <article className="dedication-card" data-dedication-card aria-label="بطاقة الإهداء">
       <div className="card-inner">
         <div className="card-top-mark" aria-hidden="true">
           <span className="mark-line" />
