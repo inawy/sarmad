@@ -818,3 +818,362 @@ input {
     font-size: 18px;
   }
 }
+
+
+/* Sharing and export controls */
+.share-actions {
+  width: min(100%, 690px);
+  margin: 30px 0 18px;
+  padding: 22px 20px 14px;
+  border: 1px solid #dce3d8;
+  border-radius: 22px;
+  background: rgba(251, 250, 245, 0.78);
+}
+
+.share-actions-heading {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.share-actions-heading h2 {
+  margin: 0;
+  color: #365c40;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.share-actions-heading p {
+  margin: 4px 0 0;
+  color: #879384;
+  font-size: 12px;
+}
+
+.share-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.share-action {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 10px 12px;
+  border: 1px solid #d8e1d5;
+  border-radius: 14px;
+  background: #fffefa;
+  color: #496a4e;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.share-action:hover:not(:disabled) {
+  border-color: #9fb49b;
+  background: #f2f6ef;
+}
+
+.share-action:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.share-action:focus-visible {
+  outline: 2px solid #6c8e70;
+  outline-offset: 3px;
+}
+
+.share-action:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.share-action--primary {
+  border-color: #315d3d;
+  background: #315d3d;
+  color: #fff;
+}
+
+.share-action--primary:hover:not(:disabled) {
+  border-color: #244b30;
+  background: #244b30;
+}
+
+.share-action-icon {
+  flex: 0 0 auto;
+}
+
+.share-actions-note {
+  margin: 12px 0 0;
+  color: #8b9688;
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.share-actions-status {
+  min-height: 20px;
+  margin: 5px 0 0;
+  color: #55765b;
+  font-size: 11px;
+  text-align: center;
+}
+
+.is-spinning {
+  animation: sarmad-spin 1s linear infinite;
+}
+
+@keyframes sarmad-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* PNG export staging is detached from the visible page layout. */
+.sarmad-export-staging {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+  width: 864px;
+  height: 1080px;
+  overflow: visible;
+  direction: rtl;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.dedication-card--export {
+  width: 864px !important;
+  max-width: none !important;
+  height: 1080px !important;
+  padding: 22px !important;
+  border-radius: 32px !important;
+  box-shadow: none !important;
+}
+
+.dedication-card--export::before {
+  inset: 19px;
+  border-radius: 23px;
+}
+
+.dedication-card--export .card-inner--export {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  justify-content: center;
+  padding: 72px 66px 58px;
+}
+
+.dedication-card--export .card-top-mark {
+  margin-bottom: 42px;
+}
+
+.dedication-card--export .mark-center {
+  width: 58px;
+  height: 58px;
+}
+
+.dedication-card--export .mark-center svg {
+  width: 32px;
+  height: 32px;
+}
+
+.dedication-card--export .mark-line {
+  width: 62px;
+}
+
+.dedication-card--export .card-eyebrow {
+  font-size: 20px;
+}
+
+.dedication-card--export .card-divider {
+  margin-block: 24px 35px;
+}
+
+.dedication-card--export .card-divider span {
+  width: 76px;
+}
+
+.dedication-card--export .to-word {
+  font-size: 43px;
+}
+
+.dedication-card--export .export-name-field {
+  display: grid;
+  width: min(100%, 620px);
+  min-height: 106px;
+  place-items: center;
+  padding: 4px 10px 13px;
+  border-bottom: 1px solid #d4dfd0;
+  color: #285b42;
+  font-family: "Amiri", "IBM Plex Sans Arabic", serif;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.dedication-card--export .export-name-field.name-field--medium {
+  font-size: 52px;
+}
+
+.dedication-card--export .export-name-field.name-field--long {
+  font-size: 42px;
+}
+
+.dedication-card--export .name-guidance {
+  margin-top: 16px;
+  font-size: 18px;
+}
+
+.dedication-card--export .message-rule {
+  margin-block: 52px 34px;
+}
+
+.dedication-card--export .message-rule span {
+  width: 92px;
+}
+
+.dedication-card--export .dedication-prayer-inline {
+  margin-top: 35px;
+  padding-top: 30px;
+  gap: 5px;
+}
+
+.dedication-card--export .dedication-prayer-inline .dedication-message {
+  font-size: 32px;
+  line-height: 1.9;
+}
+
+.dedication-card--export .dedication-recipient {
+  font-size: 35px;
+}
+
+.dedication-card--export .dedication-recipient-note {
+  margin-top: 4px;
+  font-size: 17px;
+}
+
+.dedication-card--export .card-footer {
+  margin-top: 42px;
+  font-size: 28px;
+}
+
+.dedication-card--export .footer-caption {
+  font-size: 16px;
+}
+
+/* The PDF contains the dedication and all reading content, not the action bar. */
+.exporting-document {
+  width: min(100%, 760px) !important;
+  min-height: 0 !important;
+  margin-inline: auto !important;
+  padding-inline: 16px;
+  background: #f7f7f1;
+}
+
+.exporting-document .share-actions,
+.exporting-document .editing-note {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .share-actions {
+    margin-top: 24px;
+    padding: 18px 13px 11px;
+    border-radius: 18px;
+  }
+
+  .share-actions-grid {
+    gap: 8px;
+  }
+
+  .share-action {
+    min-height: 52px;
+    gap: 7px;
+    padding: 9px 7px;
+    font-size: 12px;
+  }
+
+  .share-action-icon {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    min-width: 0;
+    min-height: 0;
+    background: #fff !important;
+  }
+
+  .app-shell {
+    min-height: 0;
+    overflow: visible;
+    background: #fff !important;
+  }
+
+  .ambient,
+  .share-actions,
+  .editing-note {
+    display: none !important;
+  }
+
+  .page-container {
+    display: block;
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+  }
+
+  .brand-header {
+    padding-block: 0 12px;
+  }
+
+  .main-content {
+    display: block;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .page-intro {
+    margin-bottom: 18px;
+  }
+
+  .dedication-card,
+  .reading-section,
+  .dedication-prayer-inline,
+  .sources-disclosure {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  .dedication-card {
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .reading-content {
+    width: 100%;
+    margin-top: 18px;
+  }
+
+  .site-footer {
+    padding-block: 12px 0;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
