@@ -282,18 +282,23 @@ input {
 .name-field {
   display: block;
   width: 100%;
-  min-height: 86px;
-  padding: 9px 8px 13px;
+  height: 3.2em;
+  min-height: 3.2em;
+  padding: 0.35em 0.15em 0.45em;
   border: 0;
   border-bottom: 1px solid transparent;
   border-radius: 0;
   outline: none;
+  appearance: none;
+  resize: none;
+  overflow: hidden;
+  white-space: nowrap;
   background: transparent;
   color: #285b42;
   font-family: "Amiri", "IBM Plex Sans Arabic", serif;
   font-size: clamp(29px, 5.1vw, 40px);
   font-weight: 700;
-  line-height: 1.6;
+  line-height: 2.2;
   text-align: center;
   text-overflow: ellipsis;
   transition: border-color 160ms ease, background-color 160ms ease;
@@ -450,10 +455,11 @@ input {
   }
 
   .name-field {
-    min-height: 78px;
-    padding: 8px 8px 12px;
+    height: 3.2em;
+    min-height: 3.2em;
+    padding: 0.35em 0.15em 0.45em;
     font-size: clamp(26px, 7.5vw, 34px);
-    line-height: 1.6;
+    line-height: 2.2;
   }
 
   .name-field--medium {
