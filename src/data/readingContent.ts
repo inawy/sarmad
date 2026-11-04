@@ -7,7 +7,6 @@ export type QuranPassage = {
   id: string;
   title: string;
   reference: string;
-  sourceUrl: string;
   basmala?: boolean;
   verses: QuranVerse[];
 };
@@ -24,7 +23,6 @@ export const QURAN_PASSAGES: QuranPassage[] = [
     id: "al-fatihah",
     title: "الفاتحة",
     reference: "١",
-    sourceUrl: "https://quran.com/ar/al-fatihah",
     verses: [
       { number: 1, text: "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ" },
       { number: 2, text: "ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ" },
@@ -39,7 +37,6 @@ export const QURAN_PASSAGES: QuranPassage[] = [
     id: "an-nas",
     title: "الناس",
     reference: "١١٤",
-    sourceUrl: "https://quran.com/ar/an-nas",
     basmala: true,
     verses: [
       { number: 1, text: "قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ" },
@@ -54,7 +51,6 @@ export const QURAN_PASSAGES: QuranPassage[] = [
     id: "al-falaq",
     title: "الفلق",
     reference: "١١٣",
-    sourceUrl: "https://quran.com/ar/al-falaq",
     basmala: true,
     verses: [
       { number: 1, text: "قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ" },
@@ -68,7 +64,6 @@ export const QURAN_PASSAGES: QuranPassage[] = [
     id: "al-ikhlas",
     title: "الإخلاص",
     reference: "١١٢",
-    sourceUrl: "https://quran.com/ar/al-ikhlas",
     basmala: true,
     verses: [
       { number: 1, text: "قُلْ هُوَ ٱللَّهُ أَحَدٌ" },
@@ -81,7 +76,6 @@ export const QURAN_PASSAGES: QuranPassage[] = [
     id: "al-kafirun",
     title: "الكافرون",
     reference: "١٠٩",
-    sourceUrl: "https://quran.com/ar/al-kafirun",
     basmala: true,
     verses: [
       { number: 1, text: "قُلْ يَـٰٓأَيُّهَا ٱلْكَـٰفِرُونَ" },
@@ -98,7 +92,6 @@ export const AYAT_AL_KURSI: QuranPassage = {
   id: "ayat-al-kursi",
   title: "آية الكرسي",
   reference: "البقرة · ٢٥٥",
-  sourceUrl: "https://quran.com/ar/al-baqarah/255",
   verses: [
     {
       number: 255,
