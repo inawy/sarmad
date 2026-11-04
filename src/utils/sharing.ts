@@ -152,15 +152,16 @@ export function printDedicationPage(): void {
   window.print();
 }
 
-export async function copyText(value: string): Promise<void> {
+export async function copyText(value: string): Promise<boolean> {
   if (navigator.clipboard?.writeText && window.isSecureContext) {
     try {
       await navigator.clipboard.writeText(value);
-      return;
+      return true;
     } catch {
-      // Use the selection-based fallback if clipboard permission is unavailable.
+      // Try the legacy clipboard path if permission is unavailable.
     }
   }
+
   const textarea = document.createElement("textarea");
   textarea.value = value;
   textarea.setAttribute("readonly", "");
@@ -169,44 +170,20 @@ export async function copyText(value: string): Promise<void> {
   textarea.style.pointerEvents = "none";
   document.body.appendChild(textarea);
   textarea.select();
-  const copied = document.execCommand("copy");
-  textarea.remove();
-  if (!copied) window.prompt("انسخ رابط الإهداء:", value);
-}
 
-export async function shareFileOrDownload(
-  file: File,
-  shareText: string,
-  shareTitle = "إهداء من سرمد",
-): Promise<"shared" | "downloaded" | "cancelled"> {
-  const shareData = { files: [file], title: shareTitle, text: shareText };
-  const shareApi = navigator as unknown as {
-    share?: (data: ShareData) => Promise<void>;
-    canShare?: (data?: ShareData) => boolean;
-  };
-  let canShareFile = false;
+  let copied = false;
   try {
-    canShareFile = typeof shareApi.share === "function" &&
-      typeof shareApi.canShare === "function" && shareApi.canShare({ files: [file] });
-  } catch {
-    canShareFile = false;
+    copied = document.execCommand("copy");
+  } finally {
+    textarea.remove();
   }
-  if (canShareFile && shareApi.share) {
-    try {
-      await shareApi.share(shareData);
-      return "shared";
-    } catch (error) {
-      if (error instanceof DOMException && error.name === "AbortError") return "cancelled";
-    }
-  }
-  downloadFile(file);
-  return "downloaded";
+  return copied;
 }
 
 export function getCurrentShareUrl(name: string): string {
-  const url = new URL(window.location.href);
+  const url = new URL(window.location.pathname, window.location.origin);
   const safeName = name.trim();
   if (safeName) url.searchParams.set("to", safeName);
-  else url.searchParams.delete("to");
   return url.toString();
 }
+
