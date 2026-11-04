@@ -1529,7 +1529,8 @@ input {
 @media screen {
   /* Keep the page content at its natural height instead of stretching the main area. */
   .page-container {
-    min-height: 0;
+    min-height: 100vh;
+    min-height: 100svh;
   }
 
   .main-content {
@@ -1565,7 +1566,7 @@ input {
   .site-footer {
     flex: 0 0 auto;
     gap: 0;
-    margin: 0;
+    margin: auto 0 0;
     padding: 2px 0 0;
   }
 
