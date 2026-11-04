@@ -1575,8 +1575,17 @@ input {
 }
 
 
-/* Final Arabic reading typography: one consistent, comfortable scale. */
+/* Final Arabic reading typography.
+   Balanced default reading scale inspired by Quran Foundation's scale-3 guidance.
+   Values are tuned for the existing Amiri Quran / Amiri fonts, not copied literally
+   from QPC Hafs because Arabic fonts have different visual metrics. */
 @media screen {
+  :root {
+    --reading-quran-size: clamp(29px, 4vh, 34px);
+    --reading-dhikr-size: clamp(26px, 3.5vh, 30px);
+    --reading-dua-size: clamp(23px, 3.2vh, 27px);
+  }
+
   .reading-content {
     margin-top: clamp(26px, 3vw, 34px);
   }
@@ -1597,14 +1606,14 @@ input {
   }
 
   .quran-text {
-    font-size: clamp(29px, 3.4vw, 34px);
-    line-height: 2.12;
+    font-size: var(--reading-quran-size);
+    line-height: 2.2;
     text-wrap: pretty;
   }
 
   .quran-text.basmala {
     margin-bottom: 12px;
-    font-size: clamp(27px, 2.8vw, 30px);
+    font-size: clamp(27px, 3.5vh, 30px);
     line-height: 1.95;
   }
 
@@ -1621,8 +1630,8 @@ input {
 
   .remembrance-line {
     max-width: 700px;
-    font-size: clamp(26px, 2.8vw, 29px);
-    line-height: 1.9;
+    font-size: var(--reading-dhikr-size);
+    line-height: 1.95;
     text-wrap: pretty;
   }
 
@@ -1631,13 +1640,19 @@ input {
   }
 
   .devotional-text {
-    font-size: clamp(23px, 2.5vw, 27px);
+    font-size: var(--reading-dua-size);
     line-height: 2.05;
     text-wrap: pretty;
   }
 }
 
 @media screen and (max-width: 640px) {
+  :root {
+    --reading-quran-size: clamp(25px, 6.2vw, 30px);
+    --reading-dhikr-size: clamp(24px, 5.8vw, 28px);
+    --reading-dua-size: clamp(22px, 5.2vw, 26px);
+  }
+
   .reading-content {
     margin-top: 24px;
   }
@@ -1651,13 +1666,12 @@ input {
   }
 
   .quran-text {
-    font-size: clamp(25px, 6.5vw, 29px);
-    line-height: 2.15;
+    line-height: 2.2;
   }
 
   .quran-text.basmala {
     margin-bottom: 11px;
-    font-size: clamp(24px, 6vw, 27px);
+    font-size: clamp(25px, 5.8vw, 28px);
     line-height: 1.95;
   }
 
@@ -1673,7 +1687,6 @@ input {
   }
 
   .remembrance-line {
-    font-size: clamp(23px, 6vw, 27px);
     line-height: 1.95;
   }
 
@@ -1682,7 +1695,6 @@ input {
   }
 
   .devotional-text {
-    font-size: clamp(21px, 5.6vw, 25px);
     line-height: 2.05;
   }
 }
