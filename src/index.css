@@ -1581,9 +1581,9 @@ input {
    from QPC Hafs because Arabic fonts have different visual metrics. */
 @media screen {
   :root {
-    --reading-quran-size: clamp(29px, 4vh, 34px);
-    --reading-dhikr-size: clamp(26px, 3.5vh, 30px);
-    --reading-dua-size: clamp(23px, 3.2vh, 27px);
+    --reading-quran-size: clamp(27px, 3.7vh, 31px);
+    --reading-dhikr-size: clamp(26px, 3.4vh, 29px);
+    --reading-dua-size: clamp(24px, 3.2vh, 27px);
   }
 
   .reading-content {
@@ -1606,14 +1606,16 @@ input {
   }
 
   .quran-text {
+    color: #38513d;
     font-size: var(--reading-quran-size);
+    font-weight: 400;
     line-height: 2.2;
     text-wrap: pretty;
   }
 
   .quran-text.basmala {
     margin-bottom: 12px;
-    font-size: clamp(27px, 3.5vh, 30px);
+    font-size: var(--reading-quran-size);
     line-height: 1.95;
   }
 
@@ -1648,9 +1650,9 @@ input {
 
 @media screen and (max-width: 640px) {
   :root {
-    --reading-quran-size: clamp(25px, 6.2vw, 30px);
-    --reading-dhikr-size: clamp(24px, 5.8vw, 28px);
-    --reading-dua-size: clamp(22px, 5.2vw, 26px);
+    --reading-quran-size: clamp(24px, 5.9vw, 28px);
+    --reading-dhikr-size: clamp(24px, 5.7vw, 27px);
+    --reading-dua-size: clamp(23px, 5.3vw, 26px);
   }
 
   .reading-content {
@@ -1671,7 +1673,7 @@ input {
 
   .quran-text.basmala {
     margin-bottom: 11px;
-    font-size: clamp(25px, 5.8vw, 28px);
+    font-size: var(--reading-quran-size);
     line-height: 1.95;
   }
 
