@@ -1525,3 +1525,60 @@ input {
     }
   }
 }
+
+
+/* Align content widths and keep the footer close to the final text */
+@media screen {
+  /* Keep the page content at its natural height instead of stretching the main area. */
+  .page-container {
+    min-height: 0;
+  }
+
+  .main-content {
+    flex: 0 0 auto;
+    padding-bottom: 0;
+  }
+
+  /* The card and reading column share one visual measure on desktop. */
+  .dedication-card {
+    width: 100%;
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .reading-content {
+    width: 100%;
+    max-width: 760px;
+    margin-inline: auto;
+    margin-bottom: 0;
+  }
+
+  /* Do not leave an extra section-sized gap after the final dua. */
+  .reading-section:last-child {
+    padding-bottom: 8px;
+    border-bottom: 0;
+  }
+
+  .site-footer {
+    flex: 0 0 auto;
+    gap: 0;
+    margin-top: 0;
+    padding-top: 5px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+  }
+
+  .site-footer-brand {
+    line-height: 1.25;
+  }
+
+  .site-footer-tagline {
+    line-height: 1.25;
+  }
+
+  @media (min-width: 1024px) {
+    .dedication-card,
+    .reading-content {
+      max-width: 760px;
+    }
+  }
+}
