@@ -25,25 +25,7 @@ export default function App() {
       <div className="page-container" id="sarmad-page">
         <BrandHeader />
         <main className="main-content">
-          <div className="page-intro">
-            <p className="intro-kicker">
-              {pageName ? "صفحة إهداء مخصصة" : "مساحة للإهداء والمحبة"}
-            </p>
-            <h1>{pageName ? `إهداء إلى ${pageName}` : "اسمٌ عزيز، وأثرٌ طيّب"}</h1>
-            <p className="intro-description">
-              {pageName
-                ? "يمكنك تغيير الاسم من البطاقة، ثم مشاركة رابط الإهداء المحدّث."
-                : "اكتب اسم الشخص الذي تحب إهداء الصفحة إليه، ثم شارك الرابط."}
-            </p>
-          </div>
-
           <DedicationCard name={name} maxLength={maxLength} onNameChange={updateName} />
-
-          <p className="editing-note">
-            {pageName
-              ? "أي تغيير في الاسم يحدّث رابط الصفحة تلقائيًا."
-              : "الاسم اختياري، ويمكنك تغييره في أي وقت قبل المشاركة."}
-          </p>
 
           <ReadingContent />
         </main>
