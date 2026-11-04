@@ -402,16 +402,24 @@ input {
 
 .site-footer {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 2px;
   padding-block: 18px 25px;
-  color: #929c8d;
-  font-size: 11px;
 }
 
-.site-footer-dot {
-  color: #abb7a5;
+.site-footer-brand {
+  color: #527257;
+  font-family: "Amiri", "IBM Plex Sans Arabic", serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.site-footer-tagline {
+  color: #929c8d;
+  font-size: 11px;
 }
 
 .sr-only {
