@@ -92,7 +92,7 @@ export async function createDedicationPdf(name: string): Promise<File> {
     if (document.fonts?.ready) await document.fonts.ready;
 
     const options = {
-      margin: [10, 12, 12, 12],
+      margin: [10, 12, 12, 12] as [number, number, number, number],
       filename: `${safeFileBase(name)}.pdf`,
       image: { type: "jpeg" as const, quality: 0.96 },
       html2canvas: {
