@@ -43,9 +43,9 @@ export default function App() {
           </p>
         </main>
 
-        <footer className="site-footer" aria-label="ناوي">
-          <span className="site-footer-brand">ناوي</span>
-          <span className="site-footer-tagline">تجربة فريدة، مساحة لها روح</span>
+        <footer className="site-footer" aria-label="سرمد">
+          <span className="site-footer-brand">سرمد</span>
+          <span className="site-footer-tagline">أثرٌ يبقى</span>
         </footer>
       </div>
     </div>
