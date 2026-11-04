@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrandHeader } from "./components/BrandHeader";
 import { DedicationCard } from "./components/DedicationCard";
+import { ReadingContent } from "./components/ReadingContent";
 import { useDedicationName } from "./hooks/useDedicationName";
 
 export default function App() {
@@ -41,6 +42,8 @@ export default function App() {
               ? "يمكنك الضغط على الاسم وتعديله في أي وقت."
               : "اكتب الاسم مباشرةً في البطاقة لتخصيص إهدائك."}
           </p>
+
+          <ReadingContent dedicationName={pageName} />
         </main>
 
         <footer className="site-footer" aria-label="سرمد">
