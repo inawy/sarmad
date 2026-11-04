@@ -76,9 +76,13 @@ export function DedicationCard({
           <span />
         </div>
 
-        <p className="dedication-message">
-          اللهم تقبّل منا ما كان خالصًا لوجهك، واجعل أثره خيرًا ورحمةً وبركة.
-        </p>
+        <div className="dedication-prayer-inline">
+          <p className="dedication-message">اللهم تقبّل قراءتي، وهب مثل ثوابها</p>
+          <p className="dedication-recipient">
+            {hasName ? `إلى ${name.trim()}` : "لمن أهديتها إليه"}
+          </p>
+          <span className="dedication-recipient-note">حيًّا كان أو ميتًا</span>
+        </div>
 
         <div className="card-footer">
           <span className="footer-flourish" aria-hidden="true">
