@@ -43,16 +43,14 @@ export function DedicationCard({ name, maxLength, onNameChange }: DedicationCard
           />
         </label>
 
-        <div className="name-guidance-row">
-          {!hasName ? (
-            <p className="name-guidance">اكتب الاسم الذي تحب إهداء الصفحة إليه.</p>
-          ) : (
+        {hasName && (
+          <div className="name-guidance-row">
             <button className="name-edit-button" type="button" onClick={focusName}>
               <Pencil size={13} />
               <span>تغيير الاسم</span>
             </button>
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="dedication-prayer-inline">
           <p className="dedication-message">اللهم تقبّل قراءتي، وهب مثل ثوابها.</p>
