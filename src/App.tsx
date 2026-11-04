@@ -10,6 +10,12 @@ export default function App() {
 
   useEffect(() => {
     document.title = pageName ? `إهداء إلى ${pageName} | سرمد` : "سرمد | صفحة إهداء";
+    const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    if (description) {
+      description.content = pageName
+        ? `صفحة إهداء إلى ${pageName} من سرمد، تضم نصوصًا من القرآن والذكر والدعاء.`
+        : "سرمد — صفحة إهداء باسمك أو باسم شخص تحبه، تضم نصوصًا من القرآن والذكر والدعاء.";
+    }
   }, [pageName]);
 
   return (
@@ -27,7 +33,7 @@ export default function App() {
             <p className="intro-description">
               {pageName
                 ? "يمكنك تغيير الاسم من البطاقة، ثم مشاركة رابط الإهداء المحدّث."
-                : "اكتب اسمك أو اسم شخص تحبه، ثم شارك صفحة الإهداء برابط."}
+                : "اكتب اسم الشخص الذي تحب إهداء الصفحة إليه، ثم شارك الرابط."}
             </p>
           </div>
 
