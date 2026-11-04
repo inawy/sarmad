@@ -34,6 +34,24 @@
       href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Google Analytics 4: page views are sent manually with a sanitized URL. -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEH48Z5WQ1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      const sarmadSafeLocation = window.location.origin + window.location.pathname;
+      gtag('set', {
+        page_location: sarmadSafeLocation,
+        page_title: 'سرمد | صفحة إهداء'
+      });
+      gtag('config', 'G-ZEH48Z5WQ1', {
+        send_page_view: false,
+        page_location: sarmadSafeLocation,
+        page_title: 'سرمد | صفحة إهداء',
+        page_referrer: document.referrer ? new URL(document.referrer).origin : undefined
+      });
+    </script>
     <title>سرمد | صفحة إهداء</title>
   </head>
   <body>
