@@ -43,7 +43,7 @@ export default function App() {
               : "اكتب الاسم مباشرةً في البطاقة لتخصيص إهدائك."}
           </p>
 
-          <ReadingContent dedicationName={pageName} />
+          <ReadingContent />
         </main>
 
         <footer className="site-footer" aria-label="سرمد">
