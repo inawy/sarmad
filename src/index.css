@@ -877,50 +877,41 @@ input {
   padding:8px 10px;
   border:1px solid #d8e1d5;
   border-radius:10px;
-  background:#f0f4ed;
-  color:#496a4e;
-  font-size:11px;
+  background:#fffefa;
+  color:#49694f;
+  font-size:12px;
   font-weight:600;
   cursor:pointer;
 }
-.share-copy-button:hover { background:#e8efe3; }
-.share-actions-status {
-  min-height:17px;
-  margin:6px 0 0;
-  color:#6f866f;
+.share-copy-button:hover { background:#f1f4ed; }
+.share-feedback {
+  margin:9px 0 0;
+  color:#68816a;
   font-size:11px;
-  line-height:1.6;
-  text-align:center;
 }
-.name-guidance-row {
+.share-actions .share-secondary {
   display:flex;
-  min-height:24px;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:10px;
+}
+.share-action {
+  display:inline-flex;
+  min-height:42px;
   align-items:center;
   justify-content:center;
-  flex-wrap:wrap;
-  gap:4px 10px;
-  margin-top:7px;
-}
-.name-guidance-row .name-guidance {
-  min-height:0;
-  margin:0;
+  gap:7px;
+  padding:9px 13px;
+  border:1px solid #dbe3d7;
+  border-radius:999px;
+  background:rgba(251,250,245,.82);
+  color:#607a63;
   font-size:12px;
-}
-.name-edit-button {
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  padding:3px 5px;
-  border:0;
-  border-radius:6px;
-  background:transparent;
-  color:#55765b;
-  font-size:11px;
-  font-weight:600;
   cursor:pointer;
 }
-.name-edit-button:hover { background:#eef3e9; }
-.is-spinning { animation:sarmad-spin 1s linear infinite; }
+.share-action:hover { background:#f0f3eb; border-color:#cbd8c7; }
+
 @keyframes sarmad-spin { to { transform:rotate(360deg); } }
 
 /* Isolated 4:5 PNG export at double resolution. */
@@ -1697,5 +1688,57 @@ input {
 
   .devotional-text {
     line-height: 2.05;
+  }
+}
+
+
+/* Quiet PWA install action in the footer */
+.install-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.install-action-trigger {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #879486;
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color 150ms ease, background-color 150ms ease;
+}
+
+.install-action-trigger:hover {
+  background: rgba(224, 231, 218, 0.52);
+  color: #527257;
+}
+
+.install-action-trigger:focus-visible {
+  outline: 2px solid #8da58a;
+  outline-offset: 2px;
+}
+
+.install-action-instructions {
+  max-width: 300px;
+  margin: 0;
+  color: #7d8c7c;
+  font-size: 11px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+@media print {
+  .install-action {
+    display: none !important;
   }
 }
