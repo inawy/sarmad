@@ -9,12 +9,12 @@ type DedicationCardProps = {
 };
 
 export function DedicationCard({ name, maxLength, onNameChange }: DedicationCardProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const hasName = name.trim().length > 0;
   const nameSizeClass = name.trim().length > 22 ? "name-field--long" :
     name.trim().length > 14 ? "name-field--medium" : "";
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => onNameChange(event.target.value);
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => onNameChange(event.target.value);
 
   const focusName = () => {
     inputRef.current?.focus();
@@ -28,10 +28,11 @@ export function DedicationCard({ name, maxLength, onNameChange }: DedicationCard
 
         <label className="name-editor">
           <span className="sr-only">اسم الشخص المُهدى إليه</span>
-          <input
+          <textarea
             ref={inputRef}
             className={`name-field ${nameSizeClass}`}
-            type="text"
+            rows={1}
+            wrap="off"
             value={name}
             onChange={handleChange}
             maxLength={maxLength}
