@@ -20,15 +20,25 @@ export default function App() {
         <BrandHeader />
         <main className="main-content">
           <div className="page-intro">
-            <p className="intro-kicker">مساحة للإهداء والمحبة</p>
-            <h1>اسمٌ عزيز، وأثرٌ طيّب</h1>
-            <p className="intro-description">صفحة إهداء بسيطة تحمل اسمك أو اسم شخص تحبه.</p>
+            <p className="intro-kicker">
+              {pageName ? "صفحة إهداء مخصصة" : "مساحة للإهداء والمحبة"}
+            </p>
+            <h1>{pageName ? `إهداء إلى ${pageName}` : "اسمٌ عزيز، وأثرٌ طيّب"}</h1>
+            <p className="intro-description">
+              {pageName
+                ? "يمكنك تغيير الاسم من البطاقة، ثم مشاركة رابط الإهداء المحدّث."
+                : "اكتب اسمك أو اسم شخص تحبه، ثم شارك صفحة الإهداء برابط."}
+            </p>
           </div>
+
           <DedicationCard name={name} maxLength={maxLength} onNameChange={updateName} />
+
           <p className="editing-note">
-            {pageName ? "يمكنك الضغط على الاسم وتعديله في أي وقت." :
-              "اكتب الاسم مباشرةً في البطاقة لتخصيص إهدائك."}
+            {pageName
+              ? "أي تغيير في الاسم يحدّث رابط الصفحة تلقائيًا."
+              : "الاسم اختياري، ويمكنك تغييره في أي وقت قبل المشاركة."}
           </p>
+
           <ReadingContent />
         </main>
         <footer className="site-footer" aria-label="سرمد">
