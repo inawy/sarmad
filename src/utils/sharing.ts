@@ -94,7 +94,7 @@ export async function createDedicationPdf(name: string): Promise<File> {
     const options = {
       margin: [10, 12, 12, 12],
       filename: `${safeFileBase(name)}.pdf`,
-      image: { type: "jpeg", quality: 0.96 },
+      image: { type: "jpeg" as const, quality: 0.96 },
       html2canvas: {
         scale: 1.7,
         useCORS: true,
@@ -104,8 +104,8 @@ export async function createDedicationPdf(name: string): Promise<File> {
       },
       jsPDF: {
         unit: "mm",
-        format: "a4",
-        orientation: "portrait",
+        format: "a4" as const,
+        orientation: "portrait" as const,
       },
       pagebreak: {
         mode: ["css", "legacy"],
