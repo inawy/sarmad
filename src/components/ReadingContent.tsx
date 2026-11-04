@@ -28,7 +28,7 @@ function QuranPassageView({ passage }: { passage: QuranPassage }) {
           href={passage.sourceUrl}
           target="_blank"
           rel="noreferrer"
-          aria-label={`مراجعة سورة ${passage.title} في المصحف`}
+          aria-label={`مراجعة ${passage.title} في المصحف`}
         >
           {passage.reference}
         </a>
