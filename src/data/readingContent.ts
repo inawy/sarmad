@@ -96,8 +96,8 @@ export const QURAN_PASSAGES: QuranPassage[] = [
 
 export const AYAT_AL_KURSI: QuranPassage = {
   id: "ayat-al-kursi",
-  title: "البقرة",
-  reference: "٢٥٥",
+  title: "آية الكرسي",
+  reference: "البقرة · ٢٥٥",
   sourceUrl: "https://quran.com/ar/al-baqarah/255",
   verses: [
     {
