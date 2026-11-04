@@ -1,22 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  ChevronDown,
-  FileText,
-  Image as ImageIcon,
-  LoaderCircle,
-  Printer,
-  Share2,
-} from "lucide-react";
-import {
-  copyText,
-  createDedicationPdf,
-  createDedicationPng,
-  getCurrentShareUrl,
-  printDedicationPage,
-  shareFileOrDownload,
-} from "../utils/sharing";
+import { useRef, useState } from "react";
+import { Check, Copy, LoaderCircle, Share2 } from "lucide-react";
+import { copyText, getCurrentShareUrl } from "../utils/sharing";
 
-type ShareAction = "link" | "image" | "pdf" | "print";
 type ShareActionsProps = { name: string };
 
 function isCancellation(error: unknown): boolean {
@@ -24,148 +9,114 @@ function isCancellation(error: unknown): boolean {
 }
 
 export function ShareActions({ name }: ShareActionsProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [busy, setBusy] = useState<ShareAction | null>(null);
+  const [panelOpen, setPanelOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [message, setMessage] = useState("");
-  const rootRef = useRef<HTMLDivElement>(null);
-  const recipient = name.trim();
+  const linkInputRef = useRef<HTMLInputElement>(null);
+  const shareUrl = getCurrentShareUrl(name);
 
-  useEffect(() => {
-    if (!menuOpen) return;
-    const handlePointerDown = (event: PointerEvent) => {
-      if (event.target instanceof Node && !rootRef.current?.contains(event.target)) {
-        setMenuOpen(false);
-      }
-    };
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
-    };
-    document.addEventListener("pointerdown", handlePointerDown);
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", handlePointerDown);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [menuOpen]);
+  const copyShareLink = async () => {
+    const success = await copyText(shareUrl);
+    setCopied(success);
+    setMessage(success ? "تم نسخ رابط الإهداء." : "حدّد الرابط وانسخه يدويًا.");
+    if (!success) {
+      linkInputRef.current?.focus();
+      linkInputRef.current?.select();
+    }
+  };
 
   const shareLink = async () => {
-    setBusy("link");
+    setPanelOpen(true);
+    setBusy(true);
+    setCopied(false);
     setMessage("");
-    const url = getCurrentShareUrl(recipient);
+
+    const recipient = name.trim();
     const shareData = {
       title: recipient ? `إهداء إلى ${recipient} | سرمد` : "سرمد | صفحة إهداء",
       text: recipient
-        ? `صفحة إهداء باسم ${recipient}، تضم نصوصًا من القرآن والذكر والدعاء.`
-        : "صفحة للإهداء والقراءة والدعاء، يمكنك تخصيصها باسم من تحب.",
-      url,
+        ? `صفحة إهداء إلى ${recipient}، فيها قراءة من القرآن وذكر ودعاء. افتح الرابط، ويمكنك تغيير الاسم ومشاركة نسختك.`
+        : "صفحة إهداء من سرمد للقراءة والذكر والدعاء. افتح الرابط واكتب الاسم الذي تحب إهداء الصفحة إليه.",
+      url: shareUrl,
     };
+
+    const shareApi = navigator as Navigator & {
+      share?: (data: ShareData) => Promise<void>;
+    };
+
     try {
-      if (navigator.share) {
+      if (typeof shareApi.share === "function") {
         try {
-          await navigator.share(shareData);
-          setMessage("تم فتح مشاركة الإهداء.");
+          await shareApi.share(shareData);
+          setMessage("تمت مشاركة الرابط.");
         } catch (error) {
-          if (isCancellation(error)) return;
-          await copyText(url);
-          setMessage("تعذرت المشاركة المباشرة؛ نُسخ الرابط بدلًا منها.");
+          if (isCancellation(error)) {
+            setMessage("تقدر تنسخ الرابط من هنا أو تشاركه لاحقًا.");
+            return;
+          }
+          await copyShareLink();
         }
       } else {
-        await copyText(url);
-        setMessage("تم نسخ رابط الإهداء.");
+        await copyShareLink();
       }
     } catch {
-      setMessage("لم نتمكن من نسخ الرابط. حاول مرة أخرى.");
+      setMessage("تعذرت مشاركة الرابط. انسخه من الحقل أدناه.");
+      linkInputRef.current?.focus();
+      linkInputRef.current?.select();
     } finally {
-      setBusy(null);
+      setBusy(false);
     }
   };
-
-  const shareImage = async () => {
-    setBusy("image");
-    setMessage("");
-    try {
-      const file = await createDedicationPng(recipient);
-      const title = recipient ? `بطاقة إهداء إلى ${recipient} | سرمد` : "بطاقة إهداء | سرمد";
-      const text = recipient ? `بطاقة إهداء باسم ${recipient} من سرمد.` : "بطاقة إهداء من سرمد.";
-      const result = await shareFileOrDownload(file, text, title);
-      setMessage(result === "shared" ? "الصورة جاهزة للمشاركة." :
-        result === "downloaded" ? "تم تنزيل بطاقة الإهداء." : "");
-    } catch {
-      setMessage("تعذر تجهيز الصورة. حاول مرة أخرى.");
-    } finally {
-      setBusy(null);
-    }
-  };
-
-  const sharePdf = async () => {
-    setBusy("pdf");
-    setMessage("");
-    try {
-      const file = await createDedicationPdf(recipient);
-      const title = recipient ? `صفحة إهداء إلى ${recipient} | سرمد` : "صفحة الإهداء كاملة | سرمد";
-      const text = recipient
-        ? `صفحة الإهداء باسم ${recipient}، وتضم نصوصًا للقراءة من القرآن والذكر والدعاء.`
-        : "صفحة إهداء من سرمد، تضم نصوصًا للقراءة من القرآن والذكر والدعاء.";
-      const result = await shareFileOrDownload(file, text, title);
-      setMessage(result === "shared" ? "ملف PDF جاهز للمشاركة." :
-        result === "downloaded" ? "تم تنزيل ملف PDF." : "");
-    } catch {
-      setMessage("تعذر تجهيز ملف PDF. جرّب الطباعة بدلًا منه.");
-    } finally {
-      setBusy(null);
-    }
-  };
-
-  const handlePrint = () => {
-    setMessage("");
-    printDedicationPage();
-  };
-
-  const runAction = (action: ShareAction) => {
-    setMenuOpen(false);
-    if (action === "link") void shareLink();
-    if (action === "image") void shareImage();
-    if (action === "pdf") void sharePdf();
-    if (action === "print") handlePrint();
-  };
-
-  const busyLabel = busy === "link" ? "جارٍ تجهيز الرابط…" :
-    busy === "image" ? "جارٍ تجهيز الصورة…" :
-      busy === "pdf" ? "جارٍ تجهيز PDF…" : "";
 
   return (
-    <div className="share-actions" data-share-ui ref={rootRef}>
+    <div className="share-actions" data-share-ui>
       <button
         className="share-trigger"
         type="button"
-        aria-haspopup="menu"
-        aria-expanded={menuOpen}
-        aria-label="خيارات مشاركة الإهداء"
-        onClick={() => { setMessage(""); setMenuOpen((open) => !open); }}
-        disabled={busy !== null}
+        onClick={() => void shareLink()}
+        disabled={busy}
       >
-        {busy ? <LoaderCircle className="is-spinning" size={18} /> : <Share2 size={18} strokeWidth={1.8} />}
-        <span>{busy ? busyLabel : "مشاركة"}</span>
-        {!busy && <ChevronDown className={menuOpen ? "share-chevron is-open" : "share-chevron"} size={15} />}
+        {busy
+          ? <LoaderCircle className="is-spinning" size={18} />
+          : <Share2 size={18} strokeWidth={1.8} />}
+        <span>{busy ? "جارٍ تجهيز الرابط…" : "مشاركة الإهداء"}</span>
       </button>
 
-      {menuOpen && (
-        <div className="share-popover" role="menu" aria-label="طرق المشاركة">
-          <button className="share-action" type="button" role="menuitem" onClick={() => runAction("link")}>
-            <Share2 className="share-action-icon" size={18} /><span>مشاركة الرابط</span>
-          </button>
-          <button className="share-action" type="button" role="menuitem" onClick={() => runAction("image")}>
-            <ImageIcon className="share-action-icon" size={18} /><span>صورة بطاقة الإهداء</span>
-          </button>
-          <button className="share-action" type="button" role="menuitem" onClick={() => runAction("pdf")}>
-            <FileText className="share-action-icon" size={18} /><span>ملف PDF كامل</span>
-          </button>
-          <button className="share-action" type="button" role="menuitem" onClick={() => runAction("print")}>
-            <Printer className="share-action-icon" size={18} /><span>طباعة الصفحة</span>
-          </button>
+      {panelOpen && (
+        <div className="share-link-panel" aria-label="رابط الإهداء">
+          <p className="share-link-title">رابط إهدائك جاهز</p>
+          <p className="share-link-description">
+            {name.trim()
+              ? "الرابط يحمل الاسم الحالي. غيّر الاسم من البطاقة لتحديث الرابط."
+              : "اكتب الاسم في البطاقة أولًا، وسيظهر في الرابط تلقائيًا."}
+          </p>
+          <div className="share-link-row">
+            <input
+              ref={linkInputRef}
+              className="share-link-input"
+              type="url"
+              value={shareUrl}
+              readOnly
+              dir="ltr"
+              aria-label="رابط الإهداء"
+              onFocus={(event) => event.currentTarget.select()}
+            />
+            <button
+              className="share-copy-button"
+              type="button"
+              onClick={() => void copyShareLink()}
+              aria-label="نسخ رابط الإهداء"
+            >
+              {copied ? <Check size={17} /> : <Copy size={17} />}
+              <span>{copied ? "تم النسخ" : "نسخ الرابط"}</span>
+            </button>
+          </div>
+          <p className="share-actions-status" role="status" aria-live="polite">
+            {message}
+          </p>
         </div>
       )}
-      <p className="share-actions-status" role="status" aria-live="polite">{busy ? busyLabel : message}</p>
     </div>
   );
 }
