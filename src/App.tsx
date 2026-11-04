@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { BrandHeader } from "./components/BrandHeader";
 import { DedicationCard } from "./components/DedicationCard";
 import { ReadingContent } from "./components/ReadingContent";
+import { ShareActions } from "./components/ShareActions";
 import { useDedicationName } from "./hooks/useDedicationName";
 
 export default function App() {
@@ -19,7 +20,7 @@ export default function App() {
       <div className="ambient ambient-one" aria-hidden="true" />
       <div className="ambient ambient-two" aria-hidden="true" />
 
-      <div className="page-container">
+      <div className="page-container" id="sarmad-page">
         <BrandHeader />
 
         <main className="main-content">
@@ -44,6 +45,7 @@ export default function App() {
           </p>
 
           <ReadingContent />
+          <ShareActions name={pageName} />
         </main>
 
         <footer className="site-footer" aria-label="سرمد">
