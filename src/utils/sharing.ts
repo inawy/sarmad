@@ -132,8 +132,12 @@ export function printDedicationPage(): void {
 
 export async function copyText(value: string): Promise<void> {
   if (navigator.clipboard?.writeText && window.isSecureContext) {
-    await navigator.clipboard.writeText(value);
-    return;
+    try {
+      await navigator.clipboard.writeText(value);
+      return;
+    } catch {
+      // Use the selection-based fallback if clipboard permission is unavailable.
+    }
   }
 
   const textarea = document.createElement("textarea");
@@ -159,11 +163,18 @@ export async function shareFileOrDownload(
 ): Promise<"shared" | "downloaded" | "cancelled"> {
   const shareData = { files: [file], title: "إهداء من سرمد", text: shareText };
 
-  if (
-    navigator.share &&
-    navigator.canShare &&
-    navigator.canShare({ files: [file] })
-  ) {
+  let canShareFile = false;
+  try {
+    canShareFile = Boolean(
+      navigator.share &&
+      navigator.canShare &&
+      navigator.canShare({ files: [file] }),
+    );
+  } catch {
+    canShareFile = false;
+  }
+
+  if (canShareFile && navigator.share) {
     try {
       await navigator.share(shareData);
       return "shared";
