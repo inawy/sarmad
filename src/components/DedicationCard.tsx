@@ -54,9 +54,7 @@ export function DedicationCard({ name, maxLength, onNameChange }: DedicationCard
         </p>
         <div className="message-rule" aria-hidden="true"><span /></div>
         <div className="dedication-prayer-inline">
-          <p className="dedication-message">اللهم تقبّل قراءتي، وهب مثل ثوابها</p>
-          <p className="dedication-recipient">{hasName ? `إلى ${name.trim()}` : "لمن أهديتها إليه"}</p>
-          <span className="dedication-recipient-note">حيًّا كان أو ميتًا</span>
+          <p className="dedication-message">اللهم تقبّل قراءتي، وهب مثل ثوابها.</p>
         </div>
         <div className="card-footer">
           <span className="footer-flourish" aria-hidden="true"><Infinity size={19} strokeWidth={1.4} /></span>
