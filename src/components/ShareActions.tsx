@@ -28,6 +28,7 @@ export function ShareActions({ name }: ShareActionsProps) {
   const [busy, setBusy] = useState<ShareAction | null>(null);
   const [message, setMessage] = useState("");
   const rootRef = useRef<HTMLDivElement>(null);
+  const recipient = name.trim();
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -50,10 +51,12 @@ export function ShareActions({ name }: ShareActionsProps) {
   const shareLink = async () => {
     setBusy("link");
     setMessage("");
-    const url = getCurrentShareUrl(name);
+    const url = getCurrentShareUrl(recipient);
     const shareData = {
-      title: name.trim() ? `إهداء إلى ${name.trim()} | سرمد` : "إهداء من سرمد",
-      text: "صفحة إهداء وقراءة ودعاء من سرمد.",
+      title: recipient ? `إهداء إلى ${recipient} | سرمد` : "سرمد | صفحة إهداء",
+      text: recipient
+        ? `صفحة إهداء باسم ${recipient}، تضم نصوصًا من القرآن والذكر والدعاء.`
+        : "صفحة للإهداء والقراءة والدعاء، يمكنك تخصيصها باسم من تحب.",
       url,
     };
     try {
@@ -81,10 +84,12 @@ export function ShareActions({ name }: ShareActionsProps) {
     setBusy("image");
     setMessage("");
     try {
-      const file = await createDedicationPng(name);
-      const result = await shareFileOrDownload(file, "بطاقة إهداء من سرمد.");
+      const file = await createDedicationPng(recipient);
+      const title = recipient ? `بطاقة إهداء إلى ${recipient} | سرمد` : "بطاقة إهداء | سرمد";
+      const text = recipient ? `بطاقة إهداء باسم ${recipient} من سرمد.` : "بطاقة إهداء من سرمد.";
+      const result = await shareFileOrDownload(file, text, title);
       setMessage(result === "shared" ? "الصورة جاهزة للمشاركة." :
-        result === "downloaded" ? "تم تنزيل صورة بطاقة الإهداء." : "");
+        result === "downloaded" ? "تم تنزيل بطاقة الإهداء." : "");
     } catch {
       setMessage("تعذر تجهيز الصورة. حاول مرة أخرى.");
     } finally {
@@ -96,8 +101,12 @@ export function ShareActions({ name }: ShareActionsProps) {
     setBusy("pdf");
     setMessage("");
     try {
-      const file = await createDedicationPdf(name);
-      const result = await shareFileOrDownload(file, "صفحة الإهداء كاملة من سرمد.");
+      const file = await createDedicationPdf(recipient);
+      const title = recipient ? `صفحة إهداء إلى ${recipient} | سرمد` : "صفحة الإهداء كاملة | سرمد";
+      const text = recipient
+        ? `صفحة الإهداء باسم ${recipient}، وتضم نصوصًا للقراءة من القرآن والذكر والدعاء.`
+        : "صفحة إهداء من سرمد، تضم نصوصًا للقراءة من القرآن والذكر والدعاء.";
+      const result = await shareFileOrDownload(file, text, title);
       setMessage(result === "shared" ? "ملف PDF جاهز للمشاركة." :
         result === "downloaded" ? "تم تنزيل ملف PDF." : "");
     } catch {
