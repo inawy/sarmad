@@ -9,8 +9,6 @@ export function BrandHeader() {
         </span>
         <span className="brand-name">سرمد</span>
       </a>
-      <span className="brand-divider" aria-hidden="true" />
-      <span className="brand-tagline">أثرٌ يبقى</span>
     </header>
   );
 }
