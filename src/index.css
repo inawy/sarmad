@@ -920,6 +920,40 @@ input {
   .share-action { min-height:44px; font-size:12px; }
 }
 
+
+/* PDF reading section title */
+.export-reading-heading {
+  margin: 28px 0 10px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid #dce3d8;
+  text-align: center;
+}
+.export-reading-eyebrow {
+  margin: 0 0 5px;
+  color: #82927f;
+  font-size: 10px;
+  letter-spacing: .08em;
+}
+.export-reading-heading h1 {
+  margin: 0;
+  color: #31553b;
+  font-family: "Amiri", "IBM Plex Sans Arabic", serif;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.export-reading-heading > p:last-child {
+  margin: 3px 0 0;
+  color: #788777;
+  font-size: 11px;
+}
+.exporting-document .dedication-prayer-inline .dedication-message {
+  max-width: 100%;
+  font-size: 18px;
+}
+.dedication-card--export .name-guidance { display:none !important; }
+.dedication-card--export .message-rule { margin-block: 52px 28px; }
+
 @media print {
   @page {
     size: A4 portrait;
