@@ -1,4 +1,3 @@
-const MEASUREMENT_ID = "G-ZEH48Z5WQ1";
 const SAFE_PAGE_TITLE = "سرمد | صفحة إهداء";
 
 declare global {
