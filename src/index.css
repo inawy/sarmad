@@ -1164,7 +1164,7 @@ input {
     width: 100%;
     align-items: stretch;
     justify-content: flex-start;
-    padding: 6px 0 22px;
+    padding: 6px 0 10px;
   }
 
   .dedication-card {
@@ -1332,8 +1332,18 @@ input {
   }
 
   .site-footer {
-    padding-top: 12px;
-    padding-bottom: max(18px, env(safe-area-inset-bottom, 0px));
+    gap: 0;
+    padding-top: 6px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom, 0px));
+  }
+
+  .site-footer-brand {
+    font-size: 16px;
+  }
+
+  .site-footer-tagline {
+    font-size: 10px;
+    line-height: 1.4;
   }
 
   /* Avoid narrow-screen clipping in the share fallback panel. */
@@ -1372,7 +1382,7 @@ input {
 
     .main-content {
       padding-top: 14px;
-      padding-bottom: 30px;
+      padding-bottom: 14px;
     }
 
     .dedication-card {
@@ -1437,7 +1447,7 @@ input {
 
     .main-content {
       padding-top: 18px;
-      padding-bottom: 38px;
+      padding-bottom: 16px;
     }
 
     .dedication-card {
