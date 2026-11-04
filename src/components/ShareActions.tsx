@@ -18,6 +18,7 @@ export function ShareActions({ name }: ShareActionsProps) {
 
   useEffect(() => {
     setCopied(false);
+    setMessage("");
   }, [shareUrl]);
 
   const copyShareLink = async () => {
