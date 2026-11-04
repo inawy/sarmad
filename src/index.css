@@ -1103,3 +1103,415 @@ input {
     print-color-adjust: exact;
   }
 }
+
+
+/* Mobile-first responsive system */
+/* Base styles target narrow Android and iOS phones first. */
+@media screen {
+  :root {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    width: 100%;
+    min-width: 320px;
+    overflow-x: clip;
+  }
+
+  body,
+  .app-shell {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .app-shell {
+    width: 100%;
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .page-container {
+    width: min(calc(100% - 24px), 940px);
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .brand-header {
+    min-height: 44px;
+    padding-top: max(8px, env(safe-area-inset-top, 0px));
+    padding-bottom: 6px;
+  }
+
+  .brand-lockup {
+    min-height: 40px;
+    gap: 6px;
+  }
+
+  .brand-symbol,
+  .brand-symbol svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .brand-name {
+    font-size: 24px;
+  }
+
+  .main-content {
+    width: 100%;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 6px 0 22px;
+  }
+
+  .dedication-card {
+    width: 100%;
+    max-width: none;
+    padding: 8px;
+    border-radius: 22px;
+    box-shadow:
+      0 12px 34px rgba(43, 69, 48, 0.07),
+      0 2px 8px rgba(43, 69, 48, 0.03);
+  }
+
+  .dedication-card::before {
+    inset: 8px;
+    border-radius: 15px;
+  }
+
+  .dedication-card::after {
+    width: 210px;
+    height: 140px;
+  }
+
+  .card-inner {
+    min-height: 0;
+    padding: clamp(20px, 4vh, 30px) clamp(12px, 4vw, 22px) clamp(20px, 3.5vh, 28px);
+  }
+
+  .card-eyebrow {
+    margin-bottom: 2px;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+
+  .name-editor {
+    width: 100%;
+    max-width: 540px;
+  }
+
+  .name-field {
+    width: 100%;
+    height: 3.2em;
+    min-height: 3.2em;
+    padding: 0.35em 0.15em 0.45em;
+    font-size: clamp(25px, 7.8vw, 34px);
+    line-height: 2.2;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .name-field--medium {
+    font-size: clamp(22px, 6.4vw, 29px);
+  }
+
+  .name-field--long {
+    font-size: clamp(19px, 5.1vw, 24px);
+  }
+
+  .name-guidance-row {
+    min-height: 24px;
+    margin-top: 3px;
+  }
+
+  .dedication-prayer-inline {
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  .dedication-prayer-inline .dedication-message {
+    max-width: 100%;
+    font-size: clamp(18px, 5vw, 21px);
+    line-height: 2;
+    text-wrap: pretty;
+  }
+
+  .share-actions {
+    width: 100%;
+    margin-top: 14px;
+  }
+
+  .share-trigger {
+    width: min(100%, 280px);
+    min-height: 46px;
+    font-size: 13px;
+  }
+
+  .share-link-panel {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .share-link-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
+  }
+
+  .share-link-input {
+    min-width: 0;
+    min-height: 44px;
+    font-size: 10px;
+  }
+
+  .share-copy-button {
+    min-width: 84px;
+    min-height: 44px;
+    padding-inline: 8px;
+  }
+
+  .reading-content {
+    width: 100%;
+    max-width: 740px;
+    margin: 20px auto 0;
+  }
+
+  .reading-section {
+    padding: 23px clamp(5px, 2.4vw, 20px);
+  }
+
+  .reading-section-heading {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .quran-text {
+    max-width: 100%;
+    font-size: clamp(22px, 6.1vw, 27px);
+    line-height: 2.2;
+    overflow-wrap: break-word;
+  }
+
+  .basmala {
+    margin-bottom: 10px;
+    font-size: clamp(21px, 5.8vw, 25px);
+    line-height: 2;
+  }
+
+  .ayah-number {
+    width: 23px;
+    height: 23px;
+    margin-inline: 3px 1px;
+    font-size: 9px;
+  }
+
+  .remembrance-lines {
+    gap: 7px;
+  }
+
+  .remembrance-line {
+    font-size: clamp(21px, 5.8vw, 25px);
+    line-height: 1.95;
+  }
+
+  .hawqalah-line {
+    margin-top: 4px;
+  }
+
+  .dua-section {
+    gap: 15px;
+  }
+
+  .devotional-text {
+    max-width: 100%;
+    font-size: clamp(20px, 5.3vw, 24px);
+    line-height: 2.05;
+    text-wrap: pretty;
+  }
+
+  .site-footer {
+    padding-top: 12px;
+    padding-bottom: max(18px, env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Avoid narrow-screen clipping in the share fallback panel. */
+  @media (max-width: 380px) {
+    .page-container {
+      width: calc(100% - 20px);
+    }
+
+    .dedication-card {
+      padding: 7px;
+      border-radius: 20px;
+    }
+
+    .card-inner {
+      padding-inline: 10px;
+    }
+
+    .share-link-row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .share-copy-button {
+      width: 100%;
+    }
+
+    .share-link-input {
+      font-size: 10px;
+    }
+  }
+
+  /* Larger phones and small tablets. */
+  @media (min-width: 600px) {
+    .page-container {
+      width: min(calc(100% - 36px), 940px);
+    }
+
+    .main-content {
+      padding-top: 14px;
+      padding-bottom: 30px;
+    }
+
+    .dedication-card {
+      padding: 12px;
+      border-radius: 26px;
+    }
+
+    .dedication-card::before {
+      inset: 10px;
+      border-radius: 18px;
+    }
+
+    .card-inner {
+      padding: 30px clamp(24px, 5vw, 48px) 28px;
+    }
+
+    .name-field {
+      font-size: clamp(32px, 5vw, 40px);
+    }
+
+    .name-field--medium {
+      font-size: clamp(28px, 4.2vw, 34px);
+    }
+
+    .name-field--long {
+      font-size: clamp(24px, 3.6vw, 30px);
+    }
+
+    .reading-section {
+      padding: 27px clamp(16px, 3vw, 28px);
+    }
+
+    .quran-text {
+      font-size: clamp(25px, 4vw, 30px);
+    }
+
+    .devotional-text {
+      font-size: clamp(22px, 3.2vw, 26px);
+    }
+  }
+
+  /* Tablet and desktop: increase whitespace without enlarging mobile text. */
+  @media (min-width: 768px) {
+    .page-container {
+      width: min(calc(100% - 48px), 940px);
+    }
+
+    .brand-header {
+      padding-top: 18px;
+      padding-bottom: 12px;
+    }
+
+    .brand-symbol,
+    .brand-symbol svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .brand-name {
+      font-size: 27px;
+    }
+
+    .main-content {
+      padding-top: 18px;
+      padding-bottom: 38px;
+    }
+
+    .dedication-card {
+      padding: 14px;
+      border-radius: 28px;
+    }
+
+    .card-inner {
+      padding: 38px 54px 34px;
+    }
+
+    .name-field {
+      font-size: clamp(36px, 4.1vw, 42px);
+    }
+
+    .reading-content {
+      margin-top: 28px;
+    }
+
+    .reading-section {
+      padding-block: 30px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page-container {
+      width: min(calc(100% - 64px), 940px);
+    }
+
+    .card-inner {
+      padding: 42px 64px 38px;
+    }
+
+    .reading-content {
+      max-width: 760px;
+      margin-top: 32px;
+    }
+
+    .reading-section {
+      padding-inline: 32px;
+    }
+  }
+
+  /* Short landscape phones: keep the card compact and scrollable. */
+  @media (max-height: 560px) and (orientation: landscape) {
+    .page-container {
+      min-height: 100vh;
+      min-height: 100svh;
+    }
+
+    .brand-header {
+      min-height: 36px;
+      padding-block: 4px;
+    }
+
+    .main-content {
+      padding-block: 4px 16px;
+    }
+
+    .card-inner {
+      padding-block: 16px;
+    }
+
+    .dedication-prayer-inline {
+      margin-top: 8px;
+      padding-top: 8px;
+    }
+
+    .share-actions {
+      margin-top: 10px;
+    }
+
+    .reading-content {
+      margin-top: 16px;
+    }
+  }
+}
