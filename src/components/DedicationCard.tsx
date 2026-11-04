@@ -59,7 +59,7 @@ export function DedicationCard({ name, maxLength, onNameChange }: DedicationCard
         )}
 
         <div className="dedication-prayer-inline">
-          <p className="dedication-message">اللهم تقبّل قراءتي، وهب مثل ثوابها.</p>
+          <p className="dedication-message">اللهم تقبّل قراءتي، وهب لهم مثل ثوابها.</p>
         </div>
 
         <ShareActions name={name.trim()} />
