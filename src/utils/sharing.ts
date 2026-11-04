@@ -163,20 +163,24 @@ export async function shareFileOrDownload(
 ): Promise<"shared" | "downloaded" | "cancelled"> {
   const shareData = { files: [file], title: "إهداء من سرمد", text: shareText };
 
+  const shareApi = navigator as unknown as {
+    share?: (data: ShareData) => Promise<void>;
+    canShare?: (data?: ShareData) => boolean;
+  };
+
   let canShareFile = false;
   try {
-    canShareFile = Boolean(
-      navigator.share &&
-      navigator.canShare &&
-      navigator.canShare({ files: [file] }),
-    );
+    canShareFile =
+      typeof shareApi.share === "function" &&
+      typeof shareApi.canShare === "function" &&
+      shareApi.canShare({ files: [file] });
   } catch {
     canShareFile = false;
   }
 
-  if (canShareFile && navigator.share) {
+  if (canShareFile && shareApi.share) {
     try {
-      await navigator.share(shareData);
+      await shareApi.share(shareData);
       return "shared";
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
