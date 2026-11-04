@@ -1573,3 +1573,116 @@ input {
     }
   }
 }
+
+
+/* Final Arabic reading typography: one consistent, comfortable scale. */
+@media screen {
+  .reading-content {
+    margin-top: clamp(26px, 3vw, 34px);
+  }
+
+  .reading-section {
+    padding-block: 28px;
+  }
+
+  .reading-section-heading {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .reading-section-heading h2,
+  .quiet-section-title {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .quran-text {
+    font-size: clamp(29px, 3.4vw, 34px);
+    line-height: 2.12;
+    text-wrap: pretty;
+  }
+
+  .quran-text.basmala {
+    margin-bottom: 12px;
+    font-size: clamp(27px, 2.8vw, 30px);
+    line-height: 1.95;
+  }
+
+  .ayah-number {
+    width: 26px;
+    height: 26px;
+    margin-inline: 5px 3px;
+    font-size: 11px;
+  }
+
+  .remembrance-section {
+    padding-block: 28px;
+  }
+
+  .remembrance-line {
+    max-width: 700px;
+    font-size: clamp(26px, 2.8vw, 29px);
+    line-height: 1.9;
+    text-wrap: pretty;
+  }
+
+  .dua-section {
+    gap: 18px;
+  }
+
+  .devotional-text {
+    font-size: clamp(23px, 2.5vw, 27px);
+    line-height: 2.05;
+    text-wrap: pretty;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .reading-content {
+    margin-top: 24px;
+  }
+
+  .reading-section {
+    padding: 24px 8px;
+  }
+
+  .reading-section-heading {
+    margin-bottom: 13px;
+  }
+
+  .quran-text {
+    font-size: clamp(25px, 6.5vw, 29px);
+    line-height: 2.15;
+  }
+
+  .quran-text.basmala {
+    margin-bottom: 11px;
+    font-size: clamp(24px, 6vw, 27px);
+    line-height: 1.95;
+  }
+
+  .ayah-number {
+    width: 24px;
+    height: 24px;
+    margin-inline: 4px 2px;
+    font-size: 10px;
+  }
+
+  .remembrance-section {
+    padding-block: 24px;
+  }
+
+  .remembrance-line {
+    font-size: clamp(23px, 6vw, 27px);
+    line-height: 1.95;
+  }
+
+  .dua-section {
+    gap: 16px;
+  }
+
+  .devotional-text {
+    font-size: clamp(21px, 5.6vw, 25px);
+    line-height: 2.05;
+  }
+}
