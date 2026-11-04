@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrandHeader } from "./components/BrandHeader";
 import { DedicationCard } from "./components/DedicationCard";
+import { InstallAction } from "./components/InstallAction";
 import { ReadingContent } from "./components/ReadingContent";
 import { useDedicationName } from "./hooks/useDedicationName";
 
@@ -32,6 +33,7 @@ export default function App() {
         <footer className="site-footer" aria-label="سرمد">
           <span className="site-footer-brand">سرمد</span>
           <span className="site-footer-tagline">أثرٌ يبقى</span>
+          <InstallAction />
         </footer>
       </div>
     </div>
