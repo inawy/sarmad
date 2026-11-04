@@ -776,3 +776,45 @@ input {
     padding: 13px;
   }
 }
+
+
+.dedication-prayer-inline {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: 24px;
+  padding-top: 19px;
+  border-top: 1px solid #e1e7dc;
+}
+
+.dedication-prayer-inline .dedication-message {
+  max-width: 100%;
+  font-size: clamp(18px, 3vw, 21px);
+  line-height: 1.8;
+}
+
+.dedication-recipient {
+  margin: 0;
+  color: #31553b;
+  font-family: "Amiri", "IBM Plex Sans Arabic", serif;
+  font-size: clamp(19px, 3vw, 23px);
+  line-height: 1.7;
+}
+
+.dedication-recipient-note {
+  color: #879384;
+  font-size: 11px;
+}
+
+@media (max-width: 640px) {
+  .dedication-prayer-inline {
+    margin-top: 19px;
+    padding-top: 15px;
+  }
+
+  .dedication-prayer-inline .dedication-message {
+    font-size: 18px;
+  }
+}
