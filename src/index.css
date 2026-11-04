@@ -530,3 +530,249 @@ input {
     animation-iteration-count: 1 !important;
   }
 }
+
+
+/* Reading experience */
+.reading-content {
+  display: flex;
+  width: min(100%, 690px);
+  flex-direction: column;
+  margin-top: 35px;
+}
+
+.reading-section {
+  padding: 30px 18px;
+  border-bottom: 1px solid rgba(151, 169, 145, 0.28);
+}
+
+.reading-section:first-child {
+  border-top: 1px solid rgba(151, 169, 145, 0.28);
+}
+
+.reading-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-bottom: 15px;
+}
+
+.reading-section-heading h2 {
+  margin: 0;
+  color: #55735a;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.quran-reference {
+  display: inline-flex;
+  min-width: 25px;
+  height: 25px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dbe3d6;
+  border-radius: 50%;
+  color: #83927f;
+  font-size: 10px;
+  text-decoration: none;
+}
+
+.quran-text {
+  margin: 0;
+  color: #2d4634;
+  direction: rtl;
+  font-family: "Amiri Quran", "Amiri", serif;
+  font-size: clamp(25px, 4vw, 31px);
+  font-weight: 400;
+  line-height: 2.25;
+  text-align: center;
+  text-rendering: optimizeLegibility;
+  unicode-bidi: plaintext;
+}
+
+.basmala {
+  margin: 0 0 12px;
+  color: #68816a;
+  font-size: clamp(22px, 3.6vw, 27px);
+  line-height: 1.9;
+}
+
+.ayah-fragment {
+  display: inline;
+}
+
+.ayah-number {
+  display: inline-flex;
+  width: 25px;
+  height: 25px;
+  align-items: center;
+  justify-content: center;
+  margin-inline: 5px 2px;
+  border: 1px solid rgba(129, 153, 123, 0.48);
+  border-radius: 50%;
+  color: #71866f;
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-size: 10px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.remembrance-section {
+  padding-block: 27px;
+}
+
+.remembrance-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+}
+
+.remembrance-line {
+  margin: 0;
+  color: #31533b;
+  font-family: "Amiri", "IBM Plex Sans Arabic", serif;
+  font-size: clamp(22px, 3.8vw, 27px);
+  line-height: 1.8;
+  text-align: center;
+}
+
+.hawqalah-line {
+  margin-top: 7px;
+  color: #64806a;
+}
+
+.dua-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.quiet-section-title {
+  margin: 0;
+  color: #66816a;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.devotional-text {
+  max-width: 610px;
+  margin: 0;
+  color: #425e48;
+  font-family: "Amiri", "IBM Plex Sans Arabic", serif;
+  font-size: clamp(20px, 3.5vw, 25px);
+  line-height: 2;
+  text-align: center;
+}
+
+.dedication-prayer {
+  margin: 25px 0 12px;
+  padding: 25px 22px;
+  border: 1px solid #d9e1d5;
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(232, 238, 225, 0.85), rgba(251, 250, 245, 0.88));
+  color: #31553b;
+  text-align: center;
+}
+
+.dedication-prayer p {
+  margin: 0;
+  font-family: "Amiri", "IBM Plex Sans Arabic", serif;
+  font-size: clamp(21px, 3.4vw, 25px);
+  line-height: 1.9;
+}
+
+.dedication-prayer span {
+  display: block;
+  margin-top: 5px;
+  color: #7c8d7a;
+  font-size: 12px;
+}
+
+.sources-disclosure {
+  width: 100%;
+  margin: 18px 0 30px;
+  padding: 14px 17px;
+  border: 1px solid #e0e6dc;
+  border-radius: 16px;
+  background: rgba(251, 250, 245, 0.58);
+  color: #718071;
+  font-size: 12px;
+}
+
+.sources-disclosure summary {
+  cursor: pointer;
+  color: #68816a;
+  font-size: 12px;
+  font-weight: 600;
+  outline-offset: 4px;
+}
+
+.sources-body {
+  padding-top: 12px;
+  line-height: 1.95;
+}
+
+.sources-body p {
+  margin: 9px 0;
+}
+
+.sources-body ul {
+  margin: 7px 0 14px;
+  padding-inline-start: 20px;
+}
+
+.sources-body li {
+  margin-block: 4px;
+}
+
+.sources-body a {
+  color: #52765d;
+  text-decoration: underline;
+  text-decoration-color: #c5d2c0;
+  text-underline-offset: 3px;
+}
+
+.sources-note {
+  color: #8b9688;
+  font-size: 11px;
+}
+
+@media (max-width: 640px) {
+  .reading-content {
+    margin-top: 26px;
+  }
+
+  .reading-section {
+    padding: 25px 5px;
+  }
+
+  .quran-text {
+    font-size: clamp(23px, 6vw, 27px);
+    line-height: 2.2;
+  }
+
+  .basmala {
+    font-size: 22px;
+  }
+
+  .ayah-number {
+    width: 23px;
+    height: 23px;
+    margin-inline: 3px 1px;
+    font-size: 9px;
+  }
+
+  .remembrance-line {
+    font-size: 22px;
+  }
+
+  .dedication-prayer {
+    padding: 20px 15px;
+  }
+
+  .sources-disclosure {
+    padding: 13px;
+  }
+}
