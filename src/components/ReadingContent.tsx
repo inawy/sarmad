@@ -53,13 +53,12 @@ export function ReadingContent() {
       <QuranPassageView passage={AYAT_AL_KURSI} />
 
       <section className="reading-section remembrance-section">
-        <h2 className="quiet-section-title">الباقيات الصالحات</h2>
-        <div className="remembrance-lines" lang="ar">
-          {DHIKR_PHRASES.map((phrase) => (
-            <p className="remembrance-line" key={phrase}>{phrase}</p>
-          ))}
-          <p className="remembrance-line hawqalah-line">{HAWQALAH}</p>
-        </div>
+        <header className="reading-section-heading">
+          <h2 className="quiet-section-title">الباقيات الصالحات</h2>
+        </header>
+        <p className="remembrance-line" lang="ar" dir="rtl">
+          {DHIKR_PHRASES.join("، ")}، و{HAWQALAH}
+        </p>
       </section>
 
       <section className="reading-section dua-section">
