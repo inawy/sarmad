@@ -43,10 +43,9 @@ export default function App() {
           </p>
         </main>
 
-        <footer className="site-footer">
-          <span>سرمد</span>
-          <span className="site-footer-dot" aria-hidden="true">·</span>
-          <span>من منظومة ناوي</span>
+        <footer className="site-footer" aria-label="ناوي">
+          <span className="site-footer-brand">ناوي</span>
+          <span className="site-footer-tagline">تجربة فريدة، مساحة لها روح</span>
         </footer>
       </div>
     </div>
