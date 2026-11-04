@@ -38,7 +38,7 @@ function findPage(): HTMLElement {
 
 function prepareStaticCard(card: HTMLElement, name: string): void {
   card.querySelectorAll("[data-share-ui], .name-guidance").forEach((element) => element.remove());
-  const input = card.querySelector<HTMLInputElement>(".name-field");
+  const input = card.querySelector<HTMLTextAreaElement>(".name-field");
   const editor = card.querySelector<HTMLElement>(".name-editor");
   if (!input || !editor) throw new Error("تعذر تجهيز اسم الإهداء للتصدير.");
   const sizeClasses = Array.from(input.classList).filter((value) => value.startsWith("name-field--"));
