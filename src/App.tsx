@@ -19,7 +19,7 @@ export default function App() {
   }, [pageName]);
 
   return (
-    <div className="app-shell min-h-screen" dir="rtl">
+    <div className="app-shell" dir="rtl">
       <div className="ambient ambient-one" aria-hidden="true" />
       <div className="ambient ambient-two" aria-hidden="true" />
       <div className="page-container" id="sarmad-page">
