@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check, Copy, LoaderCircle, Share2 } from "lucide-react";
 import { copyText, getCurrentShareUrl } from "../utils/sharing";
+import { trackEvent } from "../utils/analytics";
 
 type ShareActionsProps = { name: string };
 
@@ -25,7 +26,10 @@ export function ShareActions({ name }: ShareActionsProps) {
     const success = await copyText(shareUrl);
     setCopied(success);
     setMessage(success ? "تم نسخ رابط الإهداء." : "حدّد الرابط وانسخه يدويًا.");
-    if (!success) {
+
+    if (success) {
+      trackEvent("share_link_copied");
+    } else {
       linkInputRef.current?.focus();
       linkInputRef.current?.select();
     }
@@ -36,6 +40,7 @@ export function ShareActions({ name }: ShareActionsProps) {
     setBusy(true);
     setCopied(false);
     setMessage("");
+    trackEvent("share_link_generated");
 
     const recipient = name.trim();
     const shareData = {
@@ -54,6 +59,7 @@ export function ShareActions({ name }: ShareActionsProps) {
       if (typeof shareApi.share === "function") {
         try {
           await shareApi.share(shareData);
+          trackEvent("share", { method: "native_share" });
           setMessage("تمت مشاركة الرابط.");
         } catch (error) {
           if (isCancellation(error)) {
