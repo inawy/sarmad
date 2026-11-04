@@ -4,6 +4,7 @@ import { DedicationCard } from "./components/DedicationCard";
 import { InstallAction } from "./components/InstallAction";
 import { ReadingContent } from "./components/ReadingContent";
 import { useDedicationName } from "./hooks/useDedicationName";
+import { trackEvent, trackInitialPageView } from "./utils/analytics";
 
 export default function App() {
   const { name, updateName, maxLength } = useDedicationName();
@@ -18,6 +19,14 @@ export default function App() {
         : "سرمد — صفحة إهداء باسمك أو باسم شخص تحبه، تضم نصوصًا من القرآن والذكر والدعاء.";
     }
   }, [pageName]);
+
+  useEffect(() => {
+    trackInitialPageView();
+
+    if (new URLSearchParams(window.location.search).has("to")) {
+      trackEvent("dedication_link_opened");
+    }
+  }, []);
 
   return (
     <div className="app-shell" dir="rtl">
