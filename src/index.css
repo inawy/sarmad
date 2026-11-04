@@ -1546,12 +1546,11 @@ input {
     border-bottom: 0;
   }
 
-  /* Keep the viewport background on the shell while content determines document height. */
+  /* Let the shell end with the actual content instead of filling the viewport.
+     This prevents a large empty background area below the footer on tall phones. */
   .app-shell {
-    min-height: 100vh;
-    min-height: 100svh;
-    overflow-x: clip;
-    overflow-y: visible;
+    min-height: 0;
+    overflow: clip;
   }
 
   .site-footer {
