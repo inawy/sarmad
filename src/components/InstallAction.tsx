@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Download } from "lucide-react";
+import { trackEvent } from "../utils/analytics";
 
 type InstallPromptEvent = Event & {
   prompt: () => Promise<void>;
@@ -39,6 +40,7 @@ export function InstallAction() {
       setIsInstalled(true);
       setInstallPrompt(null);
       setShowIOSInstructions(false);
+      trackEvent("app_installed");
     };
 
     const handleDisplayModeChange = (event: MediaQueryListEvent) => {
@@ -63,23 +65,28 @@ export function InstallAction() {
   const handleInstall = async () => {
     if (installPrompt) {
       const promptEvent = installPrompt;
-      // Consume this browser prompt once; a dismissal should not trigger another prompt.
       setInstallPrompt(null);
+      trackEvent("install_prompt_opened", { platform: "browser" });
 
       try {
         await promptEvent.prompt();
         const choice = await promptEvent.userChoice;
         if (choice.outcome === "accepted") {
+          trackEvent("install_prompt_accepted", { platform: "browser" });
           setIsInstalled(true);
         }
       } catch {
-        // Keep the action hidden after an unsuccessful prompt attempt.
+        // Do not show automatic or repeated install prompts.
       }
       return;
     }
 
     if (isIOS) {
-      setShowIOSInstructions((visible) => !visible);
+      const nextVisibility = !showIOSInstructions;
+      setShowIOSInstructions(nextVisibility);
+      if (nextVisibility) {
+        trackEvent("install_instructions_opened", { platform: "ios" });
+      }
     }
   };
 
