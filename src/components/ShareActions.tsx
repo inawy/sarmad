@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Copy, LoaderCircle, Share2 } from "lucide-react";
 import { copyText, getCurrentShareUrl } from "../utils/sharing";
 
@@ -15,6 +15,10 @@ export function ShareActions({ name }: ShareActionsProps) {
   const [message, setMessage] = useState("");
   const linkInputRef = useRef<HTMLInputElement>(null);
   const shareUrl = getCurrentShareUrl(name);
+
+  useEffect(() => {
+    setCopied(false);
+  }, [shareUrl]);
 
   const copyShareLink = async () => {
     const success = await copyText(shareUrl);
