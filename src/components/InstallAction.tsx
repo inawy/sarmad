@@ -10,9 +10,20 @@ type InstallPromptEvent = Event & {
   }>;
 };
 
+function openCurrentPageInChrome(): void {
+  const page = new URL(window.location.href);
+  const hash = page.hash ? encodeURIComponent(page.hash) : "";
+  const intentUrl =
+    `intent://${page.host}${page.pathname}${page.search}${hash}` +
+    `#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(page.href)};end`;
+
+  window.location.assign(intentUrl);
+}
+
 export function InstallAction() {
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
   const [isIOS, setIsIOS] = useState(false);
+  const [isSamsungInternet, setIsSamsungInternet] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [showIOSInstructions, setShowIOSInstructions] = useState(false);
 
@@ -30,6 +41,7 @@ export function InstallAction() {
       (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
     setIsIOS(isAppleMobile);
+    setIsSamsungInternet(/SamsungBrowser\//i.test(userAgent));
 
     const handleBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
@@ -63,6 +75,14 @@ export function InstallAction() {
   }, []);
 
   const handleInstall = async () => {
+    // Samsung Internet has a reported WebAPK/Play Protect issue on Android 14+.
+    // Route the user to Chrome, whose WebAPK install path is not affected by this report.
+    if (isSamsungInternet) {
+      trackEvent("samsung_install_handoff", { platform: "samsung-internet" });
+      openCurrentPageInChrome();
+      return;
+    }
+
     if (installPrompt) {
       const promptEvent = installPrompt;
       setInstallPrompt(null);
@@ -90,7 +110,7 @@ export function InstallAction() {
     }
   };
 
-  if (isInstalled || (!installPrompt && !isIOS)) {
+  if (isInstalled || (!installPrompt && !isIOS && !isSamsungInternet)) {
     return null;
   }
 
@@ -103,8 +123,20 @@ export function InstallAction() {
         aria-expanded={isIOS ? showIOSInstructions : undefined}
       >
         <Download size={14} strokeWidth={1.8} aria-hidden="true" />
-        <span>{showIOSInstructions ? "إخفاء التعليمات" : "تثبيت سرمد"}</span>
+        <span>
+          {isSamsungInternet
+            ? "افتح Chrome للتثبيت"
+            : showIOSInstructions
+              ? "إخفاء التعليمات"
+              : "تثبيت سرمد"}
+        </span>
       </button>
+
+      {isSamsungInternet && (
+        <p className="install-action-instructions">
+          قد يعرض Samsung Internet تحذير أمان عند تثبيت بعض تطبيقات الويب. افتح سرمد في Chrome لإكمال التثبيت كتطبيق.
+        </p>
+      )}
 
       {isIOS && showIOSInstructions && (
         <p className="install-action-instructions">
