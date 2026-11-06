@@ -41,7 +41,7 @@ export function InstallAction() {
       (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
     setIsIOS(isAppleMobile);
-    setIsSamsungInternet(/SamsungBrowser\\//i.test(userAgent));
+    setIsSamsungInternet(/SamsungBrowser\//i.test(userAgent));
 
     const handleBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
