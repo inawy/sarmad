@@ -37,6 +37,7 @@ export function InstallAction() {
     const handleBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
       setInstallPrompt(event as InstallPromptEvent);
+      setShowSamsungInstructions(false);
     };
 
     const handleAppInstalled = () => {
@@ -126,15 +127,7 @@ export function InstallAction() {
         aria-expanded={instructionsExpanded}
       >
         <Download size={14} strokeWidth={1.8} aria-hidden="true" />
-        <span>
-          {instructionsExpanded
-            ? "إخفاء التعليمات"
-            : installPrompt
-              ? "تثبيت سرمد"
-              : isSamsungInternet
-                ? "تثبيت سرمد"
-                : "تثبيت سرمد"}
-        </span>
+        <span>{instructionsExpanded ? "إخفاء التعليمات" : "تثبيت سرمد"}</span>
       </button>
 
       {isSamsungInternet && showSamsungInstructions && !installPrompt && (
