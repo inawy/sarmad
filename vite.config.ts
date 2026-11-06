@@ -10,7 +10,10 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
+      // Register the worker ourselves so updates bypass the HTTP cache.
+      injectRegister: null,
       registerType: "autoUpdate",
+      filename: "sw.js",
       includeAssets: ["favicon.svg", "apple-touch-icon.png", "sarmad-192.png", "sarmad-512.png"],
       manifest: {
         id: "./",
@@ -22,6 +25,8 @@ export default defineConfig({
         start_url: "./",
         scope: "./",
         display: "standalone",
+        display_override: ["standalone"],
+        prefer_related_applications: false,
         background_color: "#f4f5ef",
         theme_color: "#285b42",
         categories: ["lifestyle", "education"],
