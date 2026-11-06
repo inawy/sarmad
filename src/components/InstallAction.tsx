@@ -41,7 +41,7 @@ export function InstallAction() {
       (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
     setIsIOS(isAppleMobile);
-    setIsSamsungInternet(/SamsungBrowser\//i.test(userAgent));
+    setIsSamsungInternet(/SamsungBrowser\\//i.test(userAgent));
 
     const handleBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
@@ -75,8 +75,7 @@ export function InstallAction() {
   }, []);
 
   const handleInstall = async () => {
-    // Samsung Internet has a reported WebAPK/Play Protect issue on Android 14+.
-    // Route the user to Chrome, whose WebAPK install path is not affected by this report.
+    // Keep the Samsung Internet handoff to Chrome without showing a warning message.
     if (isSamsungInternet) {
       trackEvent("samsung_install_handoff", { platform: "samsung-internet" });
       openCurrentPageInChrome();
@@ -131,12 +130,6 @@ export function InstallAction() {
               : "تثبيت سرمد"}
         </span>
       </button>
-
-      {isSamsungInternet && (
-        <p className="install-action-instructions">
-          قد يعرض Samsung Internet تحذير أمان عند تثبيت بعض تطبيقات الويب. افتح سرمد في Chrome لإكمال التثبيت كتطبيق.
-        </p>
-      )}
 
       {isIOS && showIOSInstructions && (
         <p className="install-action-instructions">
