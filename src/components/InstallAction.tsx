@@ -10,22 +10,13 @@ type InstallPromptEvent = Event & {
   }>;
 };
 
-function openCurrentPageInChrome(): void {
-  const page = new URL(window.location.href);
-  const hash = page.hash ? encodeURIComponent(page.hash) : "";
-  const intentUrl =
-    `intent://${page.host}${page.pathname}${page.search}${hash}` +
-    `#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${encodeURIComponent(page.href)};end`;
-
-  window.location.assign(intentUrl);
-}
-
 export function InstallAction() {
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
   const [isIOS, setIsIOS] = useState(false);
   const [isSamsungInternet, setIsSamsungInternet] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [showIOSInstructions, setShowIOSInstructions] = useState(false);
+  const [showSamsungInstructions, setShowSamsungInstructions] = useState(false);
 
   useEffect(() => {
     const displayMode = window.matchMedia("(display-mode: standalone)");
@@ -52,6 +43,7 @@ export function InstallAction() {
       setIsInstalled(true);
       setInstallPrompt(null);
       setShowIOSInstructions(false);
+      setShowSamsungInstructions(false);
       trackEvent("app_installed");
     };
 
@@ -60,6 +52,7 @@ export function InstallAction() {
         setIsInstalled(true);
         setInstallPrompt(null);
         setShowIOSInstructions(false);
+        setShowSamsungInstructions(false);
       }
     };
 
@@ -75,27 +68,35 @@ export function InstallAction() {
   }, []);
 
   const handleInstall = async () => {
-    // Keep the Samsung Internet handoff to Chrome without showing a warning message.
-    if (isSamsungInternet) {
-      trackEvent("samsung_install_handoff", { platform: "samsung-internet" });
-      openCurrentPageInChrome();
-      return;
-    }
-
+    // Use the browser's native install prompt whenever it is available.
     if (installPrompt) {
       const promptEvent = installPrompt;
       setInstallPrompt(null);
-      trackEvent("install_prompt_opened", { platform: "browser" });
+      trackEvent("install_prompt_opened", {
+        platform: isSamsungInternet ? "samsung-internet" : "browser",
+      });
 
       try {
         await promptEvent.prompt();
         const choice = await promptEvent.userChoice;
         if (choice.outcome === "accepted") {
-          trackEvent("install_prompt_accepted", { platform: "browser" });
+          trackEvent("install_prompt_accepted", {
+            platform: isSamsungInternet ? "samsung-internet" : "browser",
+          });
           setIsInstalled(true);
         }
       } catch {
-        // Do not show automatic or repeated install prompts.
+        // The browser may decline to show a prompt; keep manual instructions available.
+        if (isSamsungInternet) setShowSamsungInstructions(true);
+      }
+      return;
+    }
+
+    if (isSamsungInternet) {
+      const nextVisibility = !showSamsungInstructions;
+      setShowSamsungInstructions(nextVisibility);
+      if (nextVisibility) {
+        trackEvent("install_instructions_opened", { platform: "samsung-internet" });
       }
       return;
     }
@@ -113,26 +114,38 @@ export function InstallAction() {
     return null;
   }
 
+  const instructionsExpanded =
+    (isSamsungInternet && showSamsungInstructions) || (isIOS && showIOSInstructions);
+
   return (
     <div className="install-action">
       <button
         className="install-action-trigger"
         type="button"
         onClick={handleInstall}
-        aria-expanded={isIOS ? showIOSInstructions : undefined}
+        aria-expanded={instructionsExpanded}
       >
         <Download size={14} strokeWidth={1.8} aria-hidden="true" />
         <span>
-          {isSamsungInternet
-            ? "افتح Chrome للتثبيت"
-            : showIOSInstructions
-              ? "إخفاء التعليمات"
-              : "تثبيت سرمد"}
+          {instructionsExpanded
+            ? "إخفاء التعليمات"
+            : installPrompt
+              ? "تثبيت سرمد"
+              : isSamsungInternet
+                ? "تثبيت سرمد"
+                : "تثبيت سرمد"}
         </span>
       </button>
 
+      {isSamsungInternet && showSamsungInstructions && !installPrompt && (
+        <p className="install-action-instructions" role="status">
+          اضغط علامة (+) في شريط العنوان ثم اختر «الشاشة الرئيسية». ولو العلامة مش ظاهرة،
+          افتح قائمة المتصفح ⋮ وابحث عن «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».
+        </p>
+      )}
+
       {isIOS && showIOSInstructions && (
-        <p className="install-action-instructions">
+        <p className="install-action-instructions" role="status">
           اضغط على زر المشاركة في المتصفح، ثم اختر «إضافة إلى الشاشة الرئيسية».
         </p>
       )}
